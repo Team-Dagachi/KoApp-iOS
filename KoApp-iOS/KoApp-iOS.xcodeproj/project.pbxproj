@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C5C9C9E72C09BC5A00EF636D /* GoogleGenerativeAI in Frameworks */ = {isa = PBXBuildFile; productRef = C5C9C9E62C09BC5A00EF636D /* GoogleGenerativeAI */; };
+		C5C9C9EA2C09BD6200EF636D /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C9C9E92C09BD6200EF636D /* APIKey.swift */; };
+		C5C9C9EC2C09BFF700EF636D /* GenerativeAI-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5C9C9EB2C09BFF700EF636D /* GenerativeAI-Info.plist */; };
 		C5F22A792C01C01000833AD1 /* KoApp_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F22A782C01C01000833AD1 /* KoApp_iOSApp.swift */; };
 		C5F22A7B2C01C01000833AD1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F22A7A2C01C01000833AD1 /* ContentView.swift */; };
 		C5F22A7D2C01C01200833AD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5F22A7C2C01C01200833AD1 /* Assets.xcassets */; };
@@ -14,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C5C9C9E92C09BD6200EF636D /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		C5C9C9EB2C09BFF700EF636D /* GenerativeAI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GenerativeAI-Info.plist"; sourceTree = "<group>"; };
 		C5F22A752C01C01000833AD1 /* KoApp-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "KoApp-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5F22A782C01C01000833AD1 /* KoApp_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KoApp_iOSApp.swift; sourceTree = "<group>"; };
 		C5F22A7A2C01C01000833AD1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -26,12 +31,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5C9C9E72C09BC5A00EF636D /* GoogleGenerativeAI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C5C9C9E82C09BD5200EF636D /* APIKey */ = {
+			isa = PBXGroup;
+			children = (
+				C5C9C9E92C09BD6200EF636D /* APIKey.swift */,
+				C5C9C9EB2C09BFF700EF636D /* GenerativeAI-Info.plist */,
+			);
+			path = APIKey;
+			sourceTree = "<group>";
+		};
 		C5F22A6C2C01C01000833AD1 = {
 			isa = PBXGroup;
 			children = (
@@ -51,6 +66,7 @@
 		C5F22A772C01C01000833AD1 /* KoApp-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				C5C9C9E82C09BD5200EF636D /* APIKey */,
 				C5F22A782C01C01000833AD1 /* KoApp_iOSApp.swift */,
 				C5F22A7A2C01C01000833AD1 /* ContentView.swift */,
 				C5F22A7C2C01C01200833AD1 /* Assets.xcassets */,
@@ -83,6 +99,9 @@
 			dependencies = (
 			);
 			name = "KoApp-iOS";
+			packageProductDependencies = (
+				C5C9C9E62C09BC5A00EF636D /* GoogleGenerativeAI */,
+			);
 			productName = "KoApp-iOS";
 			productReference = C5F22A752C01C01000833AD1 /* KoApp-iOS.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +130,9 @@
 				Base,
 			);
 			mainGroup = C5F22A6C2C01C01000833AD1;
+			packageReferences = (
+				C5C9C9E52C09BC5A00EF636D /* XCRemoteSwiftPackageReference "generative-ai-swift" */,
+			);
 			productRefGroup = C5F22A762C01C01000833AD1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -127,6 +149,7 @@
 			files = (
 				C5F22A802C01C01200833AD1 /* Preview Assets.xcassets in Resources */,
 				C5F22A7D2C01C01200833AD1 /* Assets.xcassets in Resources */,
+				C5C9C9EC2C09BFF700EF636D /* GenerativeAI-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,6 +161,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5F22A7B2C01C01000833AD1 /* ContentView.swift in Sources */,
+				C5C9C9EA2C09BD6200EF636D /* APIKey.swift in Sources */,
 				C5F22A792C01C01000833AD1 /* KoApp_iOSApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -350,6 +374,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C5C9C9E52C09BC5A00EF636D /* XCRemoteSwiftPackageReference "generative-ai-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/generative-ai-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C5C9C9E62C09BC5A00EF636D /* GoogleGenerativeAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C5C9C9E52C09BC5A00EF636D /* XCRemoteSwiftPackageReference "generative-ai-swift" */;
+			productName = GoogleGenerativeAI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C5F22A6D2C01C01000833AD1 /* Project object */;
 }

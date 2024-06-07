@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C5315E202C12F02B00C96F96 /* SpeechViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5315E1F2C12F02B00C96F96 /* SpeechViewModel.swift */; };
 		C5C9C9E72C09BC5A00EF636D /* GoogleGenerativeAI in Frameworks */ = {isa = PBXBuildFile; productRef = C5C9C9E62C09BC5A00EF636D /* GoogleGenerativeAI */; };
 		C5C9C9EA2C09BD6200EF636D /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C9C9E92C09BD6200EF636D /* APIKey.swift */; };
 		C5C9C9EC2C09BFF700EF636D /* GenerativeAI-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5C9C9EB2C09BFF700EF636D /* GenerativeAI-Info.plist */; };
@@ -21,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C5315E1F2C12F02B00C96F96 /* SpeechViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechViewModel.swift; sourceTree = "<group>"; };
+		C5315E212C135CDB00C96F96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		C5C9C9E92C09BD6200EF636D /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		C5C9C9EB2C09BFF700EF636D /* GenerativeAI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GenerativeAI-Info.plist"; sourceTree = "<group>"; };
 		C5C9C9EE2C09C72900EF636D /* ChattingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingView.swift; sourceTree = "<group>"; };
@@ -62,6 +65,7 @@
 				C5C9C9F02C09C75F00EF636D /* ChatModel.swift */,
 				C5C9C9F22C09C83900EF636D /* ChatBox.swift */,
 				C5C9C9F42C09C86600EF636D /* ChatService.swift */,
+				C5315E1F2C12F02B00C96F96 /* SpeechViewModel.swift */,
 			);
 			path = Chatting;
 			sourceTree = "<group>";
@@ -85,6 +89,7 @@
 		C5F22A772C01C01000833AD1 /* KoApp-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				C5315E212C135CDB00C96F96 /* Info.plist */,
 				C5C9C9ED2C09C6C300EF636D /* Chatting */,
 				C5C9C9E82C09BD5200EF636D /* APIKey */,
 				C5F22A782C01C01000833AD1 /* KoApp_iOSApp.swift */,
@@ -143,11 +148,12 @@
 			};
 			buildConfigurationList = C5F22A702C01C01000833AD1 /* Build configuration list for PBXProject "KoApp-iOS" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = C5F22A6C2C01C01000833AD1;
 			packageReferences = (
@@ -184,6 +190,7 @@
 				C5C9C9EA2C09BD6200EF636D /* APIKey.swift in Sources */,
 				C5C9C9F52C09C86600EF636D /* ChatService.swift in Sources */,
 				C5C9C9F12C09C75F00EF636D /* ChatModel.swift in Sources */,
+				C5315E202C12F02B00C96F96 /* SpeechViewModel.swift in Sources */,
 				C5F22A792C01C01000833AD1 /* KoApp_iOSApp.swift in Sources */,
 				C5C9C9EF2C09C72900EF636D /* ChattingView.swift in Sources */,
 				C5C9C9F32C09C83900EF636D /* ChatBox.swift in Sources */,
@@ -323,8 +330,10 @@
 				DEVELOPMENT_TEAM = ZUGAVD3728;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "KoApp-iOS/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "쾁!";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "말하기 연습을 위해 음성 인식 기능이 필요해요";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -355,8 +364,10 @@
 				DEVELOPMENT_TEAM = ZUGAVD3728;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "KoApp-iOS/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "쾁!";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "말하기 연습을 위해 음성 인식 기능이 필요해요";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

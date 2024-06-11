@@ -8,16 +8,28 @@
 import SwiftUI
 import GoogleGenerativeAI
 
+/// 메인 대화용 멀티턴 Gemini API 서비스
+/// - 대화 수행
+/// - 문장검사 호출
 @Observable
 class ChatService {
+    // MARK: - Property
+    /// UI에서 메시지 보여주기 위한 배열
     private(set) var messages = [
         ChatMessage(role: .model, message: "여행 계획 있으신가요?")
     ]
+    
+    /// Gemini API 멀티턴 대화를 위한 대화 맥락 히스토리
     private(set) var history = [
         ModelContent(role: "model", parts: "여행 계획 있으신가요?")
     ]
     private(set) var loadingResponse = false
     
+    /// 문장검사용 Gemini 모델
+    var grammarService = GrammarService()
+    
+    // MARK: - Method
+    /// Gemini API에 대화를 위한 문장 보내고 응답받기
     func sendMessage(message: String) async {
         
         loadingResponse = true  // 로딩 시작
@@ -25,6 +37,13 @@ class ChatService {
         // MARK: - 유저 메시지, AI 메시지를 리스트에 추가
         messages.append(.init(role: .user, message: message))
         messages.append(.init(role: .model, message: ""))
+        
+        // MARK: - 문장검사
+        do {
+            try await grammarService.checkGrammar(sentence: message)
+        } catch {
+            print("문법 검사 중 에러 발생: \(error.localizedDescription)")
+        }
         
         do {
             // MARK: - 멀티턴 대화

@@ -26,6 +26,12 @@ struct ChattingView: View {
     
     /// 힌트 보기 버튼 상태
     @State var showHint: Bool = false
+    
+    // 텍스트 메시지 없으면 불편해서 개발중에만 쓰려고 만들어두는 변수들
+    /// (임시!) textField에서 사용할 입력 텍스트
+    @State private var textInput = ""
+    /// (임시22) textField에서 전송할 때 사용
+    @State private var sendByText: Bool = false
 
 
     var body: some View {
@@ -51,63 +57,94 @@ struct ChattingView: View {
                 }
             })
             
-            ZStack() {
-                // MARK: - Hint Button
-                Button(action: {
-                    print("힌트 보기")
-                    withAnimation {
-                        showHint.toggle()
-                    }
-                    // TODO: 힌트 보기 호출하기
+            VStack {
+                ZStack() {
+                    // MARK: - Hint Button
+                    Button(action: {
+                        print("힌트 보기")
+                        withAnimation {
+                            showHint.toggle()
+                        }
+                        // TODO: 힌트 보기 호출하기
+                        
+                    }, label: {
+                        Image("ic_bulb")
+                        Text(showHint ? "힌트 숨기기" : "힌트 보기")
+                            .fontWeight(.bold)
+                    })
+                    .foregroundStyle(Color.white)
+                    .padding(15)
+                    // TODO: orange-medium으로 색이름 대체
+                    .background(showHint ? Color(red: 0.57, green: 0.59, blue: 0.6) : Color(red: 0.99, green: 0.56, blue: 0.3))
+                    .clipShape(RoundedRectangle(cornerRadius: 40))
+                    .shadow(color: Color(red: 0.24, green: 0.26, blue: 0.27).opacity(0.12), radius: 4, x: 0, y: 4)
+                    .padding(.bottom, 0)
+                    .padding(.leading, 10)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     
-                }, label: {
-                    Image("ic_bulb")
-                    Text(showHint ? "힌트 숨기기" : "힌트 보기")
-                        .fontWeight(.bold)
-                })
-                .foregroundStyle(Color.white)
-                .padding(15)
-                // TODO: orange-medium으로 색이름 대체
-                .background(showHint ? Color(red: 0.57, green: 0.59, blue: 0.6) : Color(red: 0.99, green: 0.56, blue: 0.3))
-                .clipShape(RoundedRectangle(cornerRadius: 40))
-                .shadow(color: Color(red: 0.24, green: 0.26, blue: 0.27).opacity(0.12), radius: 4, x: 0, y: 4)
-                .padding(.bottom, 0)
-                .padding(.leading, 10)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                
-                
-                // MARK: 녹음 버튼(&정지 버튼)
-                Button(action: {
-                    speechViewModel.startRecording()
-                    // 정지 버튼 눌렀을 때 메시지 전송
-                    if !isRecording {
-                        print(recognizedText)
-                        sendMessage()
+                    
+                    // MARK: 녹음 버튼(&정지 버튼)
+                    Button(action: {
+                        speechViewModel.startRecording()
+                        // 정지 버튼 눌렀을 때 메시지 전송
+                        if !isRecording {
+                            print(recognizedText)
+                            sendMessage(usingVoice: true)
+                        }
+                    }) {
+                        if isRecording {
+                            // 녹음 시작했을 때 정지버튼 보여주기
+                            Image(systemName: "square.fill")
+                                .font(.title)
+                                .frame(width: 64, height: 64)
+                                .foregroundStyle(Color.white)
+                                .background(Color(red: 0.99, green: 0.76, blue: 0.09))
+                                .clipShape(Circle())
+                                .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
+                        } else {
+                            // 녹음중이 아닐 때(시작하기 전), 녹음 버튼 보여주기
+                            Image("ic_mic_36")
+                                .frame(width: 64, height: 64)
+                                .foregroundStyle(Color.white)
+                                .background(Color(red: 0.99, green: 0.76, blue: 0.09))
+                                .clipShape(Circle())
+                                .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
+                        }
                     }
-                }) {
-                    if isRecording {
-                        // 녹음 시작했을 때 정지버튼 보여주기
-                        Image(systemName: "square.fill")
-                            .font(.title)
-                            .frame(width: 64, height: 64)
-                            .foregroundStyle(Color.white)
-                            .background(Color(red: 0.99, green: 0.76, blue: 0.09))
-                            .clipShape(Circle())
-                            .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
+                    .frame(maxWidth: .infinity, alignment: .center)
+
+                }
+                .padding(.bottom, 40)
+                
+                // MARK: - Text Input Field & Send Button
+                HStack {
+                    TextField("메세지를 입력해주세요...", text: $textInput)
+                        .textFieldStyle(.roundedBorder)
+                        .foregroundStyle(.black)
+//                        .focused($isFocused)
+                        .disabled(chatService.loadingResponse)
+                    
+                    if chatService.loadingResponse {
+                        // Loading indicator
+                        ProgressView()
+                            .tint(.white)
+                            .frame(width: 30)
                     } else {
-                        // 녹음중이 아닐 때(시작하기 전), 녹음 버튼 보여주기
-                        Image("ic_mic_36")
-                            .frame(width: 64, height: 64)
-                            .foregroundStyle(Color.white)
-                            .background(Color(red: 0.99, green: 0.76, blue: 0.09))
-                            .clipShape(Circle())
-                            .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
+                        // Send Button
+                        Button(action: {
+                            sendMessage(usingVoice: false)
+                        }) {
+                            Image(systemName: "paperplane.fill")
+                                .padding(.horizontal)
+                                .foregroundStyle(Color.yellow)
+                        }
+                        .frame(width: 30)
+                        .disabled(textInput.isEmpty)
                     }
                 }
-                .frame(maxWidth: .infinity, alignment: .center)
-
+                .padding()
+                .background(Color.white)
             }
-            .padding(.bottom, 40)
 
         }
         .foregroundStyle(.white)
@@ -125,9 +162,12 @@ struct ChattingView: View {
     }
 
     //MARK: - Fetch Response
-    private func sendMessage() {
+    private func sendMessage(usingVoice: Bool) {
         Task {
-            await chatService.sendMessage(message: recognizedText)
+            // (임시!!) 텍스트로 보낼 때는 TextField에 있던 텍스트로 메시지 보내기
+            await chatService.sendMessage(message: usingVoice ? recognizedText : textInput)
+            
+//            await chatService.sendMessage(message: recognizedText)
         }
     }
 

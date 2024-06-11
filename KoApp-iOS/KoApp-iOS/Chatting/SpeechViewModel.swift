@@ -9,6 +9,7 @@ import SwiftUI
 import Speech
 import AVFoundation
 
+/// Apple Speech 이용해 STT 수행 
 class SpeechViewModel: ObservableObject {
     private var speechRecognizer = SFSpeechRecognizer()
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
@@ -17,6 +18,39 @@ class SpeechViewModel: ObservableObject {
 
     @Published var isRecording = false
     @Published var recognizedText = ""
+    
+    init() {
+        requestAuthorization()
+    }
+    
+    func requestAuthorization() {
+        SFSpeechRecognizer.requestAuthorization { authStatus in
+            DispatchQueue.main.async {
+                switch authStatus {
+                case .authorized:
+                    print("Speech recognition authorized")
+                case .denied:
+                    print("Speech recognition denied")
+                case .restricted:
+                    print("Speech recognition restricted")
+                case .notDetermined:
+                    print("Speech recognition determined")
+                @unknown default:
+                    fatalError()
+                }
+            }
+        }
+        
+        AVAudioSession.sharedInstance().requestRecordPermission { granted in
+            DispatchQueue.main.async {
+                if granted {
+                    print("Microphone access granted")
+                } else {
+                    print("Microphone access denied")
+                }
+            }
+        }
+    }
 
     func startRecording() {
         guard !audioEngine.isRunning else {
@@ -63,10 +97,22 @@ class SpeechViewModel: ObservableObject {
     }
 
     func stopRecording() {
-        audioEngine.stop()
-        audioEngine.inputNode.removeTap(onBus: 0)
-        recognitionRequest?.endAudio()
-        recognitionTask?.cancel()
+        audioEngine.inputNode.removeTap(onBus: 0)   // 오디오 입력 노드에서 설치된 탭 제거
+        audioEngine.stop()  // 오디오 엔진 중지
+
+        // 인식 요청에 더이상 오디오 보내지 않음 알려주기
+        if let recognitionRequest = self.recognitionRequest {
+            recognitionRequest.endAudio()
+        }  else {
+            print("recognitionRequest is already nil")
+        }
+        
+        // 현재 진행 중인 인식 작업 취소
+        if let recognitionTask = self.recognitionTask {
+            recognitionTask.cancel()
+        } else {
+            print("recognitionTask is already nil")
+        }
 
         withAnimation {
             isRecording = false

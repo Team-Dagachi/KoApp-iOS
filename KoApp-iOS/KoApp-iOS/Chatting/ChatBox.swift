@@ -6,53 +6,87 @@
 //
 
 import SwiftUI
+import Foundation
 
 struct ChatBox: View {
+    // MARK: - Property
+    /// id, role, message 값 들어있는 메시지 객체
     let chatMessage: ChatMessage
+    
+    /// 메시지 텍스트
     var message: String {
         chatMessage.message
     }
+    
+    /// 메시지 역할(user || model)
     var role: ChatRole {
         chatMessage.role
     }
+    
+    /// 역할에 따라 달라지는 말풍선 색상 계산
     var boxColor: Color {
-        return role == .model ? .white : Color(red: 253/255, green: 224/255, blue: 139/255)
+        switch role {
+        case .model:
+            return .white
+        case .user:
+            // TODO: Main-50 색상으로 변경하기
+            return Color(red: 253/255, green: 224/255, blue: 139/255)
+        case .hint:
+            // TODO: Main-50 색상으로 변경하기
+            return Color(red: 253/255, green: 224/255, blue: 139/255)
+        case .feedback:
+            // TODO: orange-light 색상으로 변경
+            return Color(red: 1, green: 0.8, blue: 0.68)
+        }
     }
+    
+    /// 책갈피 저장했는지 여부
     @State var saved: Bool = false
     
+    // MARK: - View
     var body: some View {
         VStack {
-            // 로딩중인 경우(모델 답변 기다리는중일 때)
-            if message.isEmpty {
-                HStack {
-                    ProgressView()
-                        .padding()
-                        .background(boxColor)
-                        .tint(.black)
-                        .clipShape(ChatBubbleShape(role: role))
-                    
+            // MARK: - .user 말풍선
+            if role == .user {
+                // 말풍선
+                HStack (spacing: 12) {
                     Spacer()
-                }
-            }
-            // 로딩 끝
-            else {
-                // 유저일 경우에 오른쪽부터 말풍선 띄워주기
-                if role == .user {
-                    // 말풍선
-                    HStack (spacing: 12) {
-                        Spacer()
-                        
-                        // TODO: 문장고침 여부에 따라 아이콘 바꾸기
+                    
+                    // MARK: 문장 피드백 아이콘
+                    if chatMessage.isNatural == nil {
+                        ProgressView()
+                    } else if chatMessage.isNatural == false {
+                        Image("ic_feedback_28")
+                    } else {
                         Image("ic_check_fill")
-                        
+                    }
+                    
+                    // MARK: 말풍선
+                    if message.isEmpty {
+                        ProgressView()
+                            .padding()
+                            .background(boxColor)
+                            .tint(.black)
+                            .clipShape(ChatBubbleShape(role: role))
+                    } else {
                         Text(message)
                             .padding(16)
                             .background(boxColor)
                             .foregroundColor(.black)
                             .clipShape(ChatBubbleShape(role: role))
+                            .onTapGesture {
+                                // TODO: 부자연스럽다고 뜰 경우에 말풍선 탭하면 밑에 feedback이 보이도록
+                                if chatMessage.isNatural == false {
+                                    print("feedback toggle")
+                                }
+                            }
                     }
-                    
-                    // 버튼들
+                }
+                
+                // MARK: 스피커, 번역 버튼
+                // 문장 바꿔야 하는 경우에는 안보이도록 함
+                // TODO: 바꾼 문장 확인하기 눌렀을 때 없어지도록 추후 변경하기
+                if chatMessage.isNatural == true || chatMessage.isNatural == nil {
                     HStack (spacing: 8) {
                         Spacer()
                         // 스피커 버튼
@@ -77,59 +111,136 @@ struct ChatBox: View {
                                 .clipShape(Circle())
                                 .shadow(color: Color(red: 0.24, green: 0.26, blue: 0.27).opacity(0.12), radius: 4, x: 0, y: 4)
                         }
-
                     }
-
-                // 모델일 경우 왼쪽부터 말풍선 띄워주기
-                } else {
-                    HStack (spacing: 12) {
+                }
+                
+                
+            // MARK: - .model 말풍선
+            } else if role == .model {
+                HStack (spacing: 12) {
+                    // 로딩중일 때 ProgressView 보여주기
+                    if message.isEmpty {
+                        ProgressView()
+                            .padding()
+                            .background(boxColor)
+                            .tint(.black)
+                            .clipShape(ChatBubbleShape(role: role))
+                    } else {
+                        // 로딩 끝나면 텍스트 띄우기
                         Text(message)
                             .padding(16)
                             .background(boxColor)
                             .foregroundColor(.black)
-                        .clipShape(ChatBubbleShape(role: role))
-                        
-                        Button(action: {
-                            saved.toggle()
-                            // TODO: 누르면 저장되도록 하기
-                        }, label: {
-                            Image(saved ? "ic_bookmark_fill" : "ic_bookmark")
-                        })
-                        
-                        Spacer()
+                            .clipShape(ChatBubbleShape(role: role))
                     }
                     
-                    HStack (spacing: 8) {
-                        // 스피커 버튼
-                        Button(action: {
-                            // TODO: TTS 호출
-                            print("model_tts 호출")
-                        }) {
-                            Image("ic_volume_up")
-                                .frame(width: 40, height: 40)
-                                .background(Color.white)
-                                .clipShape(Circle())
-                                .shadow(color: Color(red: 0.24, green: 0.26, blue: 0.27).opacity(0.12), radius: 4, x: 0, y: 4)
-                        }
-                        
-                        // 번역 버튼
-                        Button(action: {
-                            // TODO: 번역 호출
-                            print("model_번역 호출")
-                        }) {
-                            Image("ic_translate")
-                                .frame(width: 40, height: 40)
-                                .background(Color.white)
-                                .clipShape(Circle())
-                                .shadow(color: Color(red: 0.24, green: 0.26, blue: 0.27).opacity(0.12), radius: 4, x: 0, y: 4)
-                        }
-                        
-                        Spacer()
-                    }
+                    // MARK: 북마크 저장하기 버튼
+                    Button(action: {
+                        saved.toggle()
+                        // TODO: 누르면 저장되도록 하기
+                    }, label: {
+                        Image(saved ? "ic_bookmark_fill" : "ic_bookmark")
+                    })
                     
+                    Spacer()
                 }
+                
+                // MARK: 스피커, 번역 버튼
+                HStack (spacing: 8) {
+                    // 스피커 버튼
+                    Button(action: {
+                        // TODO: TTS 호출
+                        print("model_tts 호출")
+                    }) {
+                        Image("ic_volume_up")
+                            .frame(width: 40, height: 40)
+                            .background(Color.white)
+                            .clipShape(Circle())
+                            .shadow(color: Color(red: 0.24, green: 0.26, blue: 0.27).opacity(0.12), radius: 4, x: 0, y: 4)
+                    }
+                    
+                    // 번역 버튼
+                    Button(action: {
+                        // TODO: 번역 호출
+                        print("model_번역 호출")
+                    }) {
+                        Image("ic_translate")
+                            .frame(width: 40, height: 40)
+                            .background(Color.white)
+                            .clipShape(Circle())
+                            .shadow(color: Color(red: 0.24, green: 0.26, blue: 0.27).opacity(0.12), radius: 4, x: 0, y: 4)
+                    }
+                    
+                    Spacer()
+                }
+            // MARK: - .feedback 말풍선
+            } else if role == .feedback {
+                HStack (spacing: 12) {
+                    Spacer()
+                    
+                    // MARK: 북마크 저장하기 버튼
+                    Button(action: {
+                        saved.toggle()
+                        // TODO: 누르면 저장되도록 하기
+                    }, label: {
+                        Image(saved ? "ic_bookmark_fill" : "ic_bookmark")
+                    })
+                    
+                    // MARK: 말풍선
+                    if message.isEmpty {
+                        ProgressView()
+                            .padding()
+                            .background(boxColor)
+                            .tint(.black)
+                            .clipShape(ChatBubbleShape(role: role))
+                    } else {
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text(message)
+                            Divider()
+                            Text(chatMessage.reasonForChange ?? "바뀌는 이유")
+                                .lineLimit(3)
+                        }
+                        .padding(16)
+                        .background(boxColor)
+                        .foregroundColor(.black)
+                        .clipShape(ChatBubbleShape(role: role))
+                    }
+                }
+                .padding(.top, -10)
+                
+                // MARK: 스피커, 번역 버튼
+                HStack (spacing: 8) {
+                    Spacer()
+                    // 스피커 버튼
+                    Button(action: {
+                        // TODO: TTS 호출
+                        print("user_TTS 호출")
+                    }) {
+                        Image("ic_volume_up")
+                            .frame(width: 40, height: 40)
+                            .background(Color(red: 1, green: 0.8, blue: 0.68)) // TODO: 나중에 orange-light으로 대체
+                            .clipShape(Circle())
+                            .shadow(color: Color(red: 0.24, green: 0.26, blue: 0.27).opacity(0.12), radius: 4, x: 0, y: 4)
+                    }
+                    // 번역 버튼
+                    Button(action: {
+                        // TODO: 번역 호출
+                        print("user_번역 호출")
+                    }) {
+                        Image("ic_translate")
+                            .frame(width: 40, height: 40)
+                            .background(Color(red: 1, green: 0.8, blue: 0.68)) // TODO: 나중에 orange-light으로 대체
+                            .clipShape(Circle())
+                            .shadow(color: Color(red: 0.24, green: 0.26, blue: 0.27).opacity(0.12), radius: 4, x: 0, y: 4)
+                    }
+                }
+
+                
+            // MARK: - .hint 말풍선
+            } else if role == .hint {
+                // TODO: 힌트 호출 구현 후 스타일 만들기
             }
-            }
+        }
     }
 }
 
@@ -141,9 +252,9 @@ struct ChatBubbleShape: Shape {
     var topLeftRadius: CGFloat {
         return role == .model ? 4 : 16
     }
-    /// 유저면 오른쪽 끝 뾰족하게 계산
+    /// 유저, 고친문장, 힌트면 오른쪽 끝 뾰족하게 계산
     var topRightRadius: CGFloat {
-        return role == .user ? 4 : 16
+        return role == .user || role == .feedback || role == .hint ? 4 : 16
     }
     // 나머지는 16으로 고정
     let bottomLeftRadius: CGFloat = 16

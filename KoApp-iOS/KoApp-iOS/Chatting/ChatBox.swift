@@ -198,7 +198,7 @@ struct ChatBox: View {
                             Text(message)
                             Divider()
                             Text(chatMessage.reasonForChange ?? "바뀌는 이유")
-                                .lineLimit(3)
+                                .lineLimit(5)
                         }
                         .padding(16)
                         .background(boxColor)
@@ -238,7 +238,57 @@ struct ChatBox: View {
                 
             // MARK: - .hint 말풍선
             } else if role == .hint {
-                // TODO: 힌트 호출 구현 후 스타일 만들기
+                HStack (spacing: 12) {
+                    Spacer()
+
+                    VStack(alignment: .leading) {
+                        Text("💡힌트")
+                            .fontWeight(.bold)
+                            .foregroundStyle(Color.black)
+                        
+                        // MARK: 말풍선
+                        if message.isEmpty {
+                            ProgressView()
+                                .padding()
+                                .background(boxColor)
+                                .tint(.black)
+                                .clipShape(ChatBubbleShape(role: role))
+                        } else {
+                            Text(message)
+                                .padding(16)
+                                .background(boxColor)
+                                .foregroundColor(.black)
+                                .clipShape(ChatBubbleShape(role: role))
+                        }
+                    }
+                }
+                
+                // MARK: 스피커, 번역 버튼
+                HStack (spacing: 8) {
+                    Spacer()
+                    // 스피커 버튼
+                    Button(action: {
+                        // TODO: TTS 호출
+                        print("user_TTS 호출")
+                    }) {
+                        Image("ic_volume_up")
+                            .frame(width: 40, height: 40)
+                            .background(Color(red: 254/255, green: 236/255, blue: 186/255)) // TODO: 나중에 MainColor/Main-30으로 대체
+                            .clipShape(Circle())
+                            .shadow(color: Color(red: 0.24, green: 0.26, blue: 0.27).opacity(0.12), radius: 4, x: 0, y: 4)
+                    }
+                    // 번역 버튼
+                    Button(action: {
+                        // TODO: 번역 호출
+                        print("user_번역 호출")
+                    }) {
+                        Image("ic_translate")
+                            .frame(width: 40, height: 40)
+                            .background(Color(red: 254/255, green: 236/255, blue: 186/255)) // 나중에 MainColor/Main-30으로 대체
+                            .clipShape(Circle())
+                            .shadow(color: Color(red: 0.24, green: 0.26, blue: 0.27).opacity(0.12), radius: 4, x: 0, y: 4)
+                    }
+                }
             }
         }
     }

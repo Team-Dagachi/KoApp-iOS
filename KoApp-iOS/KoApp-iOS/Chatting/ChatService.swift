@@ -11,6 +11,7 @@ import GoogleGenerativeAI
 /// 메인 대화용 멀티턴 Gemini API 서비스
 /// - 대화 수행
 /// - 문장검사 호출
+/// - 요청한 경우 힌트 대답
 @Observable
 class ChatService {
     // MARK: - Property
@@ -30,8 +31,14 @@ class ChatService {
     /// 문장검사용 Gemini 모델
     var grammarService = GrammarService()
     
+    /// 힌트 요청용 Gemini 모델
+    var hintService = HintService()
+    
     // MARK: - Method
     /// Gemini API에 대화를 위한 문장 보내고 응답받기
+    /// 1. 문장검사
+    /// 2. 대화응답
+    /// 3. AI 대답 받으면 그 대답에 대한 힌트 요청(todo)
     func sendMessage(message: String) async {
         
         loadingResponse = true  // 로딩 시작
@@ -46,12 +53,12 @@ class ChatService {
             if let grammarCheck = try await grammarService.checkGrammar(sentence: message) {
                 // grammarCheck 첫번째 값이 false일 경우: 문장을 고쳐야 하는 경우
                 if grammarCheck.0 == false {
-                    // TODO: messages 배열에서 role이 .user인 마지막 항목 찾기
+                    // messages 배열에서 role이 .user인 마지막 항목 찾기
                     if let index = messages.lastIndex(where: { $0.role == .user }) {
-                        // TODO: 그 항목의 isNatural false로 채워넣기
+                        // 그 항목의 isNatural false로 채워넣기
                         messages[index].isNatural = false
                         
-                        // TODO: 그 항목 다음에 role이 .feedback인 항목 추가하기
+                        // 그 항목 다음에 role이 .feedback인 항목 추가하기
                         messages.insert(.init(role: .feedback, message: grammarCheck.1 ?? "어라라 에러가?", reasonForChange: grammarCheck.2), at: index + 1)
                     }
                 } 
@@ -123,6 +130,37 @@ class ChatService {
         }
     }
     
+    /// 인덱스에 해당하는 메시지 보여줄지 안보여줄지 토글하기
+    func toggleMessageShowing(index: Int, boolValue: Bool) {
+        withAnimation {
+            messages[index].isShowing = boolValue
+        }
+    }
+    
+    /// 힌트는 요청한 경우에만 hintService 활용해 힌트 보여주기
+    func requestHint() async {
+        // 다시 시도해주세요가 아닐 경우(모델의 대답이 에러가 아닌 경우)에만 진행
+        if messages.last?.message != "다시 시도해주세요." {
+            
+            // 로딩되는 과정 보여주기 위해 일단 힌트 메시지 객체 추가
+            withAnimation {
+                messages.append(.init(role: .hint, message: ""))
+            }
+            
+            // 힌트 요청
+            if let hintMessage = await hintService.requestHint(sentence: messages.last!.message) {
+                
+                // 마지막 메시지 객체에 요청받은 힌트 메시지 추가
+                withAnimation {
+                    messages[messages.count - 1].message += hintMessage
+                }
+                
+                print(messages.last ?? "마지막메시지 몰라유")
+            }
+        } else {
+            messages.append(.init(role: .hint, message: "힌트를 요청할 수 없습니다"))
+        }
+    }
     
 }
 

@@ -20,16 +20,7 @@ struct ChatMessage: Identifiable, Equatable {
     var message: String
     
     /// 말풍선이 화면에 보일지 안보일지를 결정하는 변수
-    var isShowing: Bool {
-        // 모델과 유저의 대화는 보이는 것이 기본값
-        if role == .model || role == .user {
-            return true
-            
-        // 고친 문장과 힌트는 안보이는 것이 기본값
-        } else {
-            return false
-        }
-    }
+    var isShowing: Bool
     
     /// 문장검사 결과 저장할 변수
     /// - role이 .user일 때만 값이 존재
@@ -38,4 +29,12 @@ struct ChatMessage: Identifiable, Equatable {
     /// 고친 이유 설명하는 문장이 저장될 변수
     /// - role이  .feedback일 때만 값이 존재
     var reasonForChange: String?
+    
+    init(role: ChatRole, message: String, isNatural: Bool? = nil, reasonForChange: String? = nil) {
+        self.role = role
+        self.message = message
+        self.isShowing = true /*(role == .model || role == .user || role == .hint)*/
+        self.isNatural = isNatural
+        self.reasonForChange = reasonForChange
+    }
 }

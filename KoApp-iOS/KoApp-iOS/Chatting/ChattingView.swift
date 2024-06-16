@@ -182,13 +182,25 @@ struct ChattingView: View {
                 speechViewModel.startRecording()
             }
         }) {
-            Image(systemName: isRecording ? "square.fill" : "mic.fill")
-                .font(.title)
-                .frame(width: 64, height: 64)
-                .foregroundStyle(Color.white)
-                .background(Color(red: 0.99, green: 0.76, blue: 0.09))
-                .clipShape(Circle())
-                .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
+            
+            if isRecording {
+                // 녹음 시작했을 때 정지버튼 보여주기
+                Image(systemName: "square.fill")
+                    .font(.title)
+                    .frame(width: 64, height: 64)
+                    .foregroundStyle(Color.white)
+                    .background(Color(red: 0.99, green: 0.76, blue: 0.09))
+                    .clipShape(Circle())
+                    .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
+            } else {
+                // 녹음중이 아닐 때(시작하기 전), 녹음 버튼 보여주기
+                Image("ic_mic_36")
+                    .frame(width: 64, height: 64)
+                    .foregroundStyle(Color.white)
+                    .background(Color(red: 0.99, green: 0.76, blue: 0.09))
+                    .clipShape(Circle())
+                    .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
+            }
         }
         .frame(maxWidth: .infinity, alignment: .center)
     }

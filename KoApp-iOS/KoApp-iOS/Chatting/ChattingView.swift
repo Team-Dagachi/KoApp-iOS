@@ -53,7 +53,7 @@ struct ChattingView: View {
         .foregroundStyle(.white)
         .background {
             ZStack {
-                Color(red: 247/255, green: 249/255, blue: 250/255)
+                Color(.gray100)
                     .ignoresSafeArea()
             }
         }
@@ -124,7 +124,7 @@ struct ChattingView: View {
         }
         .foregroundStyle(Color.white)
         .padding(15)
-        .background(showHint ? Color(red: 0.57, green: 0.59, blue: 0.6) : Color(red: 0.99, green: 0.56, blue: 0.3))
+        .background(showHint ? .gray500 : .orangeMedium)
         .clipShape(RoundedRectangle(cornerRadius: 40))
         .shadow(color: Color(red: 0.24, green: 0.26, blue: 0.27).opacity(0.12), radius: 4, x: 0, y: 4)
         .padding(.bottom, 0)
@@ -197,7 +197,7 @@ struct ChattingView: View {
                     .font(.title)
                     .frame(width: 64, height: 64)
                     .foregroundStyle(Color.white)
-                    .background(Color(red: 0.99, green: 0.76, blue: 0.09))
+                    .background(Color(.main100))
                     .clipShape(Circle())
                     .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
             } else {
@@ -205,7 +205,7 @@ struct ChattingView: View {
                 Image("ic_mic_36")
                     .frame(width: 64, height: 64)
                     .foregroundStyle(Color.white)
-                    .background(Color(red: 0.99, green: 0.76, blue: 0.09))
+                    .background(Color(.main100))
                     .clipShape(Circle())
                     .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
             }

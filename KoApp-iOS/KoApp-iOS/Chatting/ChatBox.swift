@@ -29,14 +29,11 @@ struct ChatBox: View {
         case .model:
             return .white
         case .user:
-            // TODO: Main-50 색상으로 변경하기
-            return Color(red: 253/255, green: 224/255, blue: 139/255)
+            return .main50
         case .hint:
-            // TODO: Main-50 색상으로 변경하기
-            return Color(red: 253/255, green: 224/255, blue: 139/255)
+            return .main50
         case .feedback:
-            // TODO: orange-light 색상으로 변경
-            return Color(red: 1, green: 0.8, blue: 0.68)
+            return .orangeLight
         }
     }
     
@@ -45,6 +42,8 @@ struct ChatBox: View {
     
     // MARK: - View
     var body: some View {
+        // TODO: 중복되는 스피커, 번역 버튼 bottomButtons로 리팩토링하기
+        // TODO: extension에 변수 만드는 방식으로 body 깔끔하게 리팩토링하기
         VStack {
             // MARK: - .user 말풍선
             if role == .user {
@@ -96,7 +95,7 @@ struct ChatBox: View {
                         }) {
                             Image("ic_volume_up")
                                 .frame(width: 40, height: 40)
-                                .background(Color(red: 254/255, green: 236/255, blue: 186/255)) // TODO: 나중에 MainColor/Main-30으로 대체
+                                .background(Color(.main30))
                                 .clipShape(Circle())
                                 .shadow(color: Color(red: 0.24, green: 0.26, blue: 0.27).opacity(0.12), radius: 4, x: 0, y: 4)
                         }
@@ -107,7 +106,7 @@ struct ChatBox: View {
                         }) {
                             Image("ic_translate")
                                 .frame(width: 40, height: 40)
-                                .background(Color(red: 254/255, green: 236/255, blue: 186/255)) // 나중에 MainColor/Main-30으로 대체
+                                .background(Color(.main30))
                                 .clipShape(Circle())
                                 .shadow(color: Color(red: 0.24, green: 0.26, blue: 0.27).opacity(0.12), radius: 4, x: 0, y: 4)
                         }
@@ -218,7 +217,7 @@ struct ChatBox: View {
                     }) {
                         Image("ic_volume_up")
                             .frame(width: 40, height: 40)
-                            .background(Color(red: 1, green: 0.8, blue: 0.68)) // TODO: 나중에 orange-light으로 대체
+                            .background(Color(.orangeLight))
                             .clipShape(Circle())
                             .shadow(color: Color(red: 0.24, green: 0.26, blue: 0.27).opacity(0.12), radius: 4, x: 0, y: 4)
                     }
@@ -229,7 +228,7 @@ struct ChatBox: View {
                     }) {
                         Image("ic_translate")
                             .frame(width: 40, height: 40)
-                            .background(Color(red: 1, green: 0.8, blue: 0.68)) // TODO: 나중에 orange-light으로 대체
+                            .background(Color(.orangeLight))
                             .clipShape(Circle())
                             .shadow(color: Color(red: 0.24, green: 0.26, blue: 0.27).opacity(0.12), radius: 4, x: 0, y: 4)
                     }
@@ -273,7 +272,7 @@ struct ChatBox: View {
                     }) {
                         Image("ic_volume_up")
                             .frame(width: 40, height: 40)
-                            .background(Color(red: 254/255, green: 236/255, blue: 186/255)) // TODO: 나중에 MainColor/Main-30으로 대체
+                            .background(Color(.main30))
                             .clipShape(Circle())
                             .shadow(color: Color(red: 0.24, green: 0.26, blue: 0.27).opacity(0.12), radius: 4, x: 0, y: 4)
                     }
@@ -284,7 +283,7 @@ struct ChatBox: View {
                     }) {
                         Image("ic_translate")
                             .frame(width: 40, height: 40)
-                            .background(Color(red: 254/255, green: 236/255, blue: 186/255)) // 나중에 MainColor/Main-30으로 대체
+                            .background(Color(.main30))
                             .clipShape(Circle())
                             .shadow(color: Color(red: 0.24, green: 0.26, blue: 0.27).opacity(0.12), radius: 4, x: 0, y: 4)
                     }
@@ -355,3 +354,34 @@ struct ChatBubbleShape: Shape {
     ChatBox(chatMessage: ChatMessage(role: .user, message: "여행 계획 있으신가요?"))
 }
 
+extension ChatBox {
+    private var bottomButtons: some View {
+        // TODO: chatBox 타입에 따라 버튼 색상 다르게
+        // TODO: 스피킹, 번역 실행중인지 여부에 따라 버튼 진하기(색상) 다르게
+        HStack (spacing: 8) {
+            Spacer()
+            // 스피커 버튼
+            Button(action: {
+                // TODO: TTS 호출
+                print("user_TTS 호출")
+            }) {
+                Image("ic_volume_up")
+                    .frame(width: 40, height: 40)
+                    .background(Color(red: 1, green: 0.8, blue: 0.68)) // TODO: 이 부분
+                    .clipShape(Circle())
+                    .shadow(color: Color(red: 0.24, green: 0.26, blue: 0.27).opacity(0.12), radius: 4, x: 0, y: 4)
+            }
+            // 번역 버튼
+            Button(action: {
+                // TODO: 번역 호출
+                print("user_번역 호출")
+            }) {
+                Image("ic_translate")
+                    .frame(width: 40, height: 40)
+                    .background(Color(red: 1, green: 0.8, blue: 0.68)) // TODO: 이 부분
+                    .clipShape(Circle())
+                    .shadow(color: Color(red: 0.24, green: 0.26, blue: 0.27).opacity(0.12), radius: 4, x: 0, y: 4)
+            }
+        }
+    }
+}

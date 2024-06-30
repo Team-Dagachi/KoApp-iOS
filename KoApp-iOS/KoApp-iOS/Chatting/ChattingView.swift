@@ -20,18 +20,19 @@ struct ChattingView: View {
     
     /// 힌트 보기 버튼 상태
     @State var showHint: Bool = false
+    
     // MARK: STT 관련 프로퍼티
     /// STT기능 담당
-    @StateObject private var speechViewModel = SpeechViewModel()
+    @StateObject private var sttService = STTService()
     
     /// STT로 인식한 텍스트
     var recognizedText: String {
-        return speechViewModel.recognizedText
+        return sttService.recognizedText
     }
     
     /// 녹음 진행 상태
     var isRecording: Bool {
-        return speechViewModel.isRecording
+        return sttService.isRecording
     }
     
     
@@ -68,6 +69,14 @@ struct ChattingView: View {
                     if chatMessage.isShowing {
                         ChatBox(chatMessage: chatMessage)
                             .padding([.horizontal, .bottom])
+                            // TODO: 문장검사 결과는 그냥 보여주는 게 아니라 말풍선 탭하면 그때 보여주기
+//                            .onTapGesture {
+//                                // 문장검사 결과 보기: 유저의 문장검사 고쳐야 한다면, 말풍선 탭할 때 밑에 띄워주기
+//                                if chatMessage.role == .user || !chatMessage.isNatural {
+//                                    // 다음 피드백 말풍선 보여주기
+//                                    chatService.toggleMessageShowing
+//                                }
+//                            }
                     }
                 }
             }
@@ -167,19 +176,18 @@ struct ChattingView: View {
         }
     }
     
-    // TODO: 여기 바뀐 코드 좀 있음. 에러 없는지 확인해보자!!!
     // MARK: 녹음 버튼
     @ViewBuilder
     private func recordingButton() -> some View {
         Button(action: {
             // 정지버튼 누름
             if isRecording {
-                speechViewModel.stopRecording()
+                sttService.stopRecording()
                 sendMessage(usingVoice: true)
             }
             // 녹음 버튼 누름
             else {
-                speechViewModel.startRecording()
+                sttService.startRecording()
             }
         }) {
             

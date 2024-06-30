@@ -9,9 +9,9 @@ import SwiftUI
 import Speech
 import AVFoundation
 
-/// Apple Speech 이용해 STT 수행 
-class SpeechViewModel: ObservableObject {
-    private var speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "ko-KR"))!
+/// Apple Speech 이용해 STT 수행
+class STTService: ObservableObject {
+    private var speechRecognizer: SFSpeechRecognizer?
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private var recognitionTask: SFSpeechRecognitionTask?
     private var audioEngine = AVAudioEngine()
@@ -20,6 +20,10 @@ class SpeechViewModel: ObservableObject {
     @Published var recognizedText = ""
     
     init() {
+        speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "ko-KR"))
+        if speechRecognizer == nil {
+            print("Speech recognizer is not available for the specified locale.")
+        }
         requestAuthorization()
     }
     
@@ -34,9 +38,9 @@ class SpeechViewModel: ObservableObject {
                 case .restricted:
                     print("Speech recognition restricted")
                 case .notDetermined:
-                    print("Speech recognition determined")
+                    print("Speech recognition not determined")
                 @unknown default:
-                    fatalError()
+                    fatalError("Unknown authorization status")
                 }
             }
         }
@@ -68,7 +72,7 @@ class SpeechViewModel: ObservableObject {
             guard let recognitionRequest = recognitionRequest else { return }
             recognitionRequest.shouldReportPartialResults = true
 
-            recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest) { result, error in
+            recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest) { result, error in
                 if let result = result {
                     self.recognizedText = result.bestTranscription.formattedString
                 }
@@ -99,10 +103,22 @@ class SpeechViewModel: ObservableObject {
     func stopRecording() {
         audioEngine.stop()
         audioEngine.inputNode.removeTap(onBus: 0)
+
         recognitionRequest?.endAudio()
+        recognitionRequest = nil
+
+        recognitionTask?.cancel()
+        recognitionTask = nil
+
+        do {
+            let audioSession = AVAudioSession.sharedInstance()
+            try audioSession.setActive(false, options: .notifyOthersOnDeactivation)
+        } catch {
+            print("Failed to deactivate audio session: \(error.localizedDescription)")
+        }
+
         withAnimation {
             self.isRecording = false
         }
     }
-    
 }

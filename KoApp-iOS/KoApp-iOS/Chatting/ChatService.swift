@@ -16,25 +16,43 @@ import GoogleGenerativeAI
 class ChatService {
     // MARK: - Property
     /// UI에서 메시지 보여주기 위한 배열
-    private(set) var messages = [
-        ChatMessage(role: .model, message: "여행 계획 있으신가요?")
-    ]
+    private(set) var messages: [ChatMessage]
     
     /// Gemini API 멀티턴 대화를 위한 대화 맥락 히스토리
-    private(set) var history = [
-        ModelContent(role: "model", parts: "여행 계획 있으신가요?")
-    ]
+    private(set) var history: [ModelContent]
+    
+    /// 주제별 대화를 위해 다르게 입력되어야 하는 프롬프트 텍스트
+    var systemInstruction: String
     
     /// 문법검사 완료됐는지 확인
     private(set) var loadingResponse = false
     
     /// 문장검사용 Gemini 모델
-    var grammarService = GrammarService()
+    var grammarService: GrammarService
     
     /// 힌트 요청용 Gemini 모델
-    var hintService = HintService()
+    var hintService: HintService
+    
+    /// TTS 서비스
+    var ttsService: TTSService
+    
     
     // MARK: - Method
+    init() {
+        self.messages = [ChatMessage(role: .model, message: "여행 계획 있으신가요?") ]
+        self.history = [ ModelContent(role: "model", parts: "여행 계획 있으신가요?") ]
+        self.systemInstruction = "너는 친절한 한국인 말하기 선생님이야. 한국어를 배우는 외국인 학생이랑 여행에 대한 대화를 나눠보자. 네가 '여행 계획이 있으신가요?'로 질문을 했고, 학생은 그에 이어서 대화를 이어나가는 상황이야. 따라서 User와 대화할 때, 친근한 말투로 쉬운 단어를 사용해서 길지 않게 말해줘. 존댓말을 사용하며, \"-에요.\", \"-하더라고요.\" 말투를 사용해. 여행 장소, 같이 여행가는 사람, 구체적인 여행계획 등에 대한 대화를 하면 돼. 대화가 끊기지 않도록 질문을 계속해줘. 질문은 한 번에 하나씩만 해. 답변이 어려운 문장이면 에러 내지 말고 그냥 다음 질문으로 넘어가. 마지막은 '즐거운 여행 되시길 바라요! '로 끝내자. 이모지 없이 텍스트로만 대답해줘"
+        self.loadingResponse = false
+        self.grammarService = GrammarService()
+        self.hintService = HintService()
+        self.ttsService = TTSService()
+        
+        DispatchQueue.main.async {
+            self.ttsService.speak(self.messages.first!.message, .ko)
+        }
+    }
+    
+    
     /// Gemini API에 대화를 위한 문장 보내고 응답받기
     /// 1. 문장검사
     /// 2. 대화응답
@@ -81,7 +99,7 @@ class ChatService {
             // MARK: - 멀티턴 대화
             let config = GenerationConfig(
                 temperature: 1,
-                maxOutputTokens: 50
+                maxOutputTokens: 100
             )
             
             let model = GenerativeModel(
@@ -94,7 +112,7 @@ class ChatService {
                     SafetySetting(harmCategory: .sexuallyExplicit, threshold: .blockOnlyHigh),
                     SafetySetting(harmCategory: .dangerousContent, threshold: .blockOnlyHigh)
                   ],
-                systemInstruction: "너는 친절한 한국인 말하기 선생님이야. 한국어를 배우는 외국인 학생이랑 여행에 대한 대화를 나눠보자. 네가 '여행 계획이 있으신가요?'로 질문을 했고, 학생은 그에 이어서 대화를 이어나가는 상황이야. 따라서 User와 대화할 때, 친근한 말투로 쉬운 단어를 사용해서 길지 않게 말해줘. 존댓말을 사용하며, \"-에요.\", \"-하더라고요.\" 말투를 사용해. 여행 장소, 같이 여행가는 사람, 구체적인 여행계획 등에 대한 대화를 하면 돼. 대화가 끊기지 않도록 질문을 계속해줘. 질문은 한 번에 하나씩만 해. 답변이 어려운 문장이면 에러 내지 말고 그냥 다음 질문으로 넘어가. 마지막은 '즐거운 여행 되시길 바라요! '로 끝내자. 이모지 없이 텍스트로만 대답해줘"
+                systemInstruction: self.systemInstruction
             )
             
             
@@ -107,12 +125,16 @@ class ChatService {
 //                print("가공 전 text: \(text)")
                 
                 // 불필요한 \n 제거
-                let precessedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
+                let processedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
                 
-//                print("가공 후 텍스트:", precessedText)
+                print("응답메시지:", processedText)
                 
                 let lastChatMessageIndex = messages.count - 1
-                messages[lastChatMessageIndex].message += precessedText
+                messages[lastChatMessageIndex].message += processedText
+                
+                // TODO: 한국어 응답 TTS로 읽어주기
+                print("sendMessage speak")
+                ttsService.speak(processedText, .ko)
             }
             
             

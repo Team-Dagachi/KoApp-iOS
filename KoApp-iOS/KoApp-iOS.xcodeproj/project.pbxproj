@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C5315E202C12F02B00C96F96 /* SpeechViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5315E1F2C12F02B00C96F96 /* SpeechViewModel.swift */; };
+		C52EC5AA2C313990004F6BDB /* TTSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52EC5A92C313990004F6BDB /* TTSService.swift */; };
+		C5315E202C12F02B00C96F96 /* STTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5315E1F2C12F02B00C96F96 /* STTService.swift */; };
 		C5BFDDC42C1818E000DC2CF9 /* GrammarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BFDDC32C1818E000DC2CF9 /* GrammarService.swift */; };
 		C5BFDDC62C1AAE4500DC2CF9 /* HintService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BFDDC52C1AAE4500DC2CF9 /* HintService.swift */; };
 		C5C9C9E72C09BC5A00EF636D /* GoogleGenerativeAI in Frameworks */ = {isa = PBXBuildFile; productRef = C5C9C9E62C09BC5A00EF636D /* GoogleGenerativeAI */; };
@@ -24,7 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C5315E1F2C12F02B00C96F96 /* SpeechViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechViewModel.swift; sourceTree = "<group>"; };
+		C52EC5A92C313990004F6BDB /* TTSService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSService.swift; sourceTree = "<group>"; };
+		C5315E1F2C12F02B00C96F96 /* STTService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STTService.swift; sourceTree = "<group>"; };
 		C5315E212C135CDB00C96F96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		C5BFDDC32C1818E000DC2CF9 /* GrammarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrammarService.swift; sourceTree = "<group>"; };
 		C5BFDDC52C1AAE4500DC2CF9 /* HintService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HintService.swift; sourceTree = "<group>"; };
@@ -69,7 +71,8 @@
 				C5C9C9F02C09C75F00EF636D /* ChatModel.swift */,
 				C5C9C9F22C09C83900EF636D /* ChatBox.swift */,
 				C5C9C9F42C09C86600EF636D /* ChatService.swift */,
-				C5315E1F2C12F02B00C96F96 /* SpeechViewModel.swift */,
+				C52EC5A92C313990004F6BDB /* TTSService.swift */,
+				C5315E1F2C12F02B00C96F96 /* STTService.swift */,
 				C5BFDDC32C1818E000DC2CF9 /* GrammarService.swift */,
 				C5BFDDC52C1AAE4500DC2CF9 /* HintService.swift */,
 			);
@@ -193,11 +196,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5F22A7B2C01C01000833AD1 /* ContentView.swift in Sources */,
+				C52EC5AA2C313990004F6BDB /* TTSService.swift in Sources */,
 				C5C9C9EA2C09BD6200EF636D /* APIKey.swift in Sources */,
 				C5BFDDC62C1AAE4500DC2CF9 /* HintService.swift in Sources */,
 				C5C9C9F52C09C86600EF636D /* ChatService.swift in Sources */,
 				C5C9C9F12C09C75F00EF636D /* ChatModel.swift in Sources */,
-				C5315E202C12F02B00C96F96 /* SpeechViewModel.swift in Sources */,
+				C5315E202C12F02B00C96F96 /* STTService.swift in Sources */,
 				C5F22A792C01C01000833AD1 /* KoApp_iOSApp.swift in Sources */,
 				C5C9C9EF2C09C72900EF636D /* ChattingView.swift in Sources */,
 				C5C9C9F32C09C83900EF636D /* ChatBox.swift in Sources */,

@@ -7,11 +7,13 @@
 
 import Foundation
 
-enum SpeakingTopic {
-    case family
-    case school
-    case weatherSeason
-    case travel
-    case shopping
-    case media
+enum SpeakingTopic: String, CaseIterable, Identifiable {
+    case family = "가족"
+    case school = "학교"
+    case weatherSeason = "날씨와 계절"
+    case travel = "여행"
+    case shopping = "쇼핑"
+    case media = "미디어와 콘텐츠"
+    
+    var id: String { self.rawValue }
 }

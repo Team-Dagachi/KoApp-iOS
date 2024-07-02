@@ -18,25 +18,7 @@ struct SketchbookItemView: View {
     /// API에서 입력받을 진행도
     // 일단 랜덤
     let progressValue: Float = Float.random(in: 0...1)
-    
-    /// 스케치북 제목. 스피킹 주제 제목
-    var title: String {
-        switch topic {
-        case .family:
-            "가족"
-        case .school:
-            "학교"
-        case .weatherSeason:
-            "날씨와 계절"
-        case .travel:
-            "여행"
-        case .shopping:
-            "쇼핑"
-        case .media:
-            "미디어와 콘텐츠"
-        }
-    }
-    
+        
     /// 아이콘 이미지
     var icon: String {
         switch topic {
@@ -50,7 +32,7 @@ struct SketchbookItemView: View {
     }
     
     /// 테마 색상
-    var progressColor: Color {
+    var tint: Color {
         switch topic {
         case .family: .redMedium
         case .school: .orangeMedium
@@ -68,26 +50,26 @@ struct SketchbookItemView: View {
             VStack {
                 Spacer()
                 
-                VStack {
-                    Text(title)
-                        .font(.title3) // TODO: H3
-                    
-                    Image(icon)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 50, height: 50)
-                        .background(
-                            Circle()
-                                .foregroundStyle(Color.gray100)
-                                .frame(width: 80, height: 80)
-                        )
-                        .padding(.top, 12)
-                        .padding(.bottom, 24)
-                    
-                    CustomProgressBar(progressRate: CGFloat(progressValue), tint: progressColor)
-                        .padding([.leading, .trailing], 16)
-                        .frame(height: 12)
-                }
+                Text(topic.rawValue)
+                    .font(.headline) // TODO: H3
+                    .padding(.top, (self.height < 210) ? 20 : 0) // 스케치북 길이가 짧을 때 '미디어와 콘텐츠'가 클립이랑 안겹치도록
+                
+                Image(icon)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 50, height: 50)
+                    .background(
+                        Circle()
+                            .foregroundStyle(Color.gray100)
+                            .frame(width: 80, height: 80)
+                    )
+                    .padding(.top, 12)
+                    .padding(.bottom, 24)
+                
+                CustomProgressBar(progressRate: CGFloat(progressValue), tint: self.tint)
+                    .padding([.leading, .trailing], 16)
+                    .padding(.bottom, 16)
+                    .frame(height: 12)
                 
                 Spacer()
             }
@@ -95,24 +77,28 @@ struct SketchbookItemView: View {
             .background(Color.white)
             .cornerRadius(15)
             .shadow(color: Color(red: 0.57, green: 0.59, blue: 0.6).opacity(0.2), radius: 8, x: 0, y: 4)
-            .padding(.top, 16)
+            .padding(.top, 16) // 클립의 절반 밑으로 스케치북 종이 보이도록
             
+            // 스케치북 클립(?)
             HStack {
                 RoundedRectangle(cornerRadius: 8)
                     .frame(width: 16, height: 32)
                     .padding(.leading, 24)
-                    .foregroundStyle(progressColor)
+                    .foregroundStyle(tint)
                 
                 Spacer()
                 
                 RoundedRectangle(cornerRadius: 8)
                     .frame(width: 16, height: 32)
                     .padding(.trailing, 24)
-                    .foregroundStyle(progressColor)
+                    .foregroundStyle(tint)
             }
         }
-        .frame(width: .infinity, height: height)
-//        .padding(.horizontal)
+        .frame(maxWidth: .infinity,
+               // 최대한 210에 맞춰봄
+               minHeight: height < 210 ? height : 210,
+               maxHeight: height > 210 ? height : 210)
+        .padding(.horizontal, 6)
     }
 }
 

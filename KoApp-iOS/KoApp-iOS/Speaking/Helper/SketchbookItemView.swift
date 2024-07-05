@@ -104,4 +104,7 @@ struct SketchbookItemView: View {
 
 #Preview {
     SketchbookItemView(topic: .travel, height: 210)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .ignoresSafeArea()
+        .background(Color.black)
 }

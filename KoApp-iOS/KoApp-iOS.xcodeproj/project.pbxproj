@@ -113,6 +113,42 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		C53A34B32C380E41008A88F0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C5C9C9EE2C09C72900EF636D /* ChattingView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C53A34B42C380E4A008A88F0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C5C9C9F02C09C75F00EF636D /* ChatModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C53A34B52C380E53008A88F0 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				C5C9C9F22C09C83900EF636D /* ChatBox.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		C53A34B62C380E7B008A88F0 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				C5C9C9F42C09C86600EF636D /* ChatService.swift */,
+				C52EC5A92C313990004F6BDB /* TTSService.swift */,
+				C5315E1F2C12F02B00C96F96 /* STTService.swift */,
+				C5BFDDC32C1818E000DC2CF9 /* GrammarService.swift */,
+				C5BFDDC52C1AAE4500DC2CF9 /* HintService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		C5C9C9E82C09BD5200EF636D /* APIKey */ = {
 			isa = PBXGroup;
 			children = (
@@ -125,14 +161,10 @@
 		C5C9C9ED2C09C6C300EF636D /* Chatting */ = {
 			isa = PBXGroup;
 			children = (
-				C5C9C9EE2C09C72900EF636D /* ChattingView.swift */,
-				C5C9C9F02C09C75F00EF636D /* ChatModel.swift */,
-				C5C9C9F22C09C83900EF636D /* ChatBox.swift */,
-				C5C9C9F42C09C86600EF636D /* ChatService.swift */,
-				C52EC5A92C313990004F6BDB /* TTSService.swift */,
-				C5315E1F2C12F02B00C96F96 /* STTService.swift */,
-				C5BFDDC32C1818E000DC2CF9 /* GrammarService.swift */,
-				C5BFDDC52C1AAE4500DC2CF9 /* HintService.swift */,
+				C53A34B42C380E4A008A88F0 /* Model */,
+				C53A34B32C380E41008A88F0 /* View */,
+				C53A34B52C380E53008A88F0 /* Helper */,
+				C53A34B62C380E7B008A88F0 /* Service */,
 			);
 			path = Chatting;
 			sourceTree = "<group>";

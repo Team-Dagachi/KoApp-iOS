@@ -132,7 +132,7 @@ class ChatService {
                 let lastChatMessageIndex = messages.count - 1
                 messages[lastChatMessageIndex].message += processedText
                 
-                // TODO: 한국어 응답 TTS로 읽어주기
+                // 한국어 응답 TTS로 읽어주기
                 print("sendMessage speak")
                 ttsService.speak(processedText, .ko)
             }

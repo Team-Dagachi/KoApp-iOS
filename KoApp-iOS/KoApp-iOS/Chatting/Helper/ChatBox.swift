@@ -37,8 +37,63 @@ struct ChatBox: View {
         }
     }
     
+    /// 하단 스피커버튼 실행중인지 여부에 따라 버튼 진하기(색상) 다르게
+    var speakerButtonColor: Color {
+        switch role {
+        case .model:
+            if isSpeaking {
+                return .gray400
+            } else { return .white }
+        case .user:
+            if isSpeaking {
+                return .main70
+            } else { return .main30 }
+        case .hint:
+            if isSpeaking {
+                return .main70
+            } else { return .main30 }
+        case .feedback:
+            if isSpeaking {
+                return .orangeDark
+            } else { return .orangeLight }
+        }
+    }
+    
+    /// 하단 번역버튼 실행중인지 여부에 따라 버튼 진하기(색상) 다르게
+    var translateButtonColor: Color {
+        switch role {
+        case .model:
+            if isTranslating {
+                return .gray400
+            } else { return .white }
+        case .user:
+            if isTranslating {
+                return .main70
+            } else { return .main30 }
+        case .hint:
+            if isTranslating {
+                return .main70
+            } else { return .main30 }
+        case .feedback:
+            if isTranslating {
+                return .orangeDark
+            } else { return .orangeLight }
+        }
+    }
+    
     /// 책갈피 저장했는지 여부
     @State var saved: Bool = false
+    
+    /// TTS 호출용
+    @ObservedObject var ttsService = TTSService()
+    
+    /// TTS 실행 상태를 나타내는 변수
+    private var isSpeaking: Bool {
+        ttsService.isSpeaking
+    }
+    
+    /// 번역된 텍스트가 보이는지
+    @State var isTranslating: Bool = false
     
     // MARK: - View
     var body: some View {
@@ -283,23 +338,26 @@ extension ChatBox {
             
             // 스피커 버튼
             Button(action: {
-                // TODO: TTS 호출
-                print("user_TTS 호출")
+                // TTS 호출
+                ttsService.speak(message)
             }) {
-                Image("ic_volume_up")
+                // 피드백 진한 주황버튼일 때는 버튼 아이콘 흰색이어야 함
+                Image((role == .feedback && isSpeaking) ? "ic_volume_up_white" : "ic_volume_up")
                     .frame(width: 40, height: 40)
-                    .background(boxColor)
+                    .background(speakerButtonColor)
                     .clipShape(Circle())
                     .shadow(color: Color(red: 0.24, green: 0.26, blue: 0.27).opacity(0.12), radius: 4, x: 0, y: 4)
             }
             // 번역 버튼
             Button(action: {
                 // TODO: 번역 호출
+                isTranslating.toggle()
                 print("user_번역 호출")
             }) {
-                Image("ic_translate")
+                // 피드백 진한 주황버튼일 때는 버튼 아이콘 흰색이어야 함
+                Image((role == .feedback && isTranslating) ? "ic_translate_white" : "ic_translate")
                     .frame(width: 40, height: 40)
-                    .background(boxColor)
+                    .background(translateButtonColor)
                     .clipShape(Circle())
                     .shadow(color: Color(red: 0.24, green: 0.26, blue: 0.27).opacity(0.12), radius: 4, x: 0, y: 4)
             }

@@ -21,14 +21,7 @@ struct SketchbookItemView: View {
         
     /// 아이콘 이미지
     var icon: String {
-        switch topic {
-        case .family: "ic_home"
-        case .school: "ic_school"
-        case .weatherSeason: "ic_weather"
-        case .travel: "ic_carieer"
-        case .shopping: "ic_shoppingBag"
-        case .media: "ic_clapboard"
-        }
+        topic.icon
     }
     
     /// 테마 색상

@@ -30,11 +30,17 @@ struct ChatMessage: Identifiable, Equatable {
     /// - role이  .feedback일 때만 값이 존재
     var reasonForChange: String?
     
+    /// user가 feedback말풍선을 볼 때는 bottomButtons 안보이고, 아닐 때는 보이도록
+    var showBottomButtons: Bool
+    
     init(role: ChatRole, message: String, isNatural: Bool? = nil, reasonForChange: String? = nil) {
         self.role = role
         self.message = message
-        self.isShowing = true /*(role == .model || role == .user || role == .hint)*/
         self.isNatural = isNatural
         self.reasonForChange = reasonForChange
+        self.showBottomButtons = true
+        
+        // feedback은 처음에는 안보이도록 설정
+        self.isShowing = ((role == .feedback) ? false : true)
     }
 }

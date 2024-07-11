@@ -69,14 +69,9 @@ struct ChattingView: View {
                     if chatMessage.isShowing {
                         ChatBox(chatMessage: chatMessage)
                             .padding([.horizontal, .bottom])
-                            // TODO: 문장검사 결과는 그냥 보여주는 게 아니라 말풍선 탭하면 그때 보여주기
-//                            .onTapGesture {
-//                                // 문장검사 결과 보기: 유저의 문장검사 고쳐야 한다면, 말풍선 탭할 때 밑에 띄워주기
-//                                if chatMessage.role == .user || !chatMessage.isNatural {
-//                                    // 다음 피드백 말풍선 보여주기
-//                                    chatService.toggleMessageShowing
-//                                }
-//                            }
+                            .onTapGesture {
+                                handleTapOnFeedbackMessage(chatMessage)
+                            }
                     }
                 }
             }
@@ -155,7 +150,7 @@ struct ChattingView: View {
                 }
                 // 이미 요청했고, 숨기기만 해둔 힌트가 있는 경우
                 else {
-                    chatService.toggleMessageShowing(index: lastHintIndex, boolValue: showHint) // true
+                    chatService.toggleMessageShowing(index: lastHintIndex) // true
                     print("숨겨둔 힌트 꺼냄")
                 }
             }
@@ -171,7 +166,7 @@ struct ChattingView: View {
         // 힌트 숨기기
         else {
             if let lastHintIndex = chatMessages.lastIndex(where: { $0.role == .hint }) {
-                chatService.toggleMessageShowing(index: lastHintIndex, boolValue: showHint) // false
+                chatService.toggleMessageShowing(index: lastHintIndex) // false
             }
         }
     }
@@ -262,6 +257,20 @@ struct ChattingView: View {
         // 한 턴의 대화가 끝났으므로, 다음 대답을 위한 힌트 보기 버튼으로 바꾸기
         withAnimation {
             showHint = false
+        }
+    }
+    
+    /// 피드백이 있는 유저 말풍선을 누르면 피드백 말풍선을 띄울 수 있도록 하는 함수
+    private func handleTapOnFeedbackMessage(_ chatMessage: ChatMessage) {
+        // 메시지 인덱스 찾아내기
+        guard let index = chatService.messages.firstIndex(of: chatMessage) else {
+            print("handleTapOnChatMessage firstIndex 없음")
+            return
+        }
+        // 유저의 말풍선 왼쪽에 번개 있는 경우, 피드백 말풍선 보여주고 ButtomButtons 숨기기(두 개 변수 반대로 토글)
+        if (chatMessage.role == .user) && ((chatMessage.isNatural ?? true) == false) {
+            chatService.toggleMessageShowing(index: index+1)
+            chatService.toggleUserBottomButtons(index: index)
         }
     }
 }

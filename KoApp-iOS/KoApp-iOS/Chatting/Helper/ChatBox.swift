@@ -95,6 +95,11 @@ struct ChatBox: View {
     /// 번역된 텍스트가 보이는지
     @State var isTranslating: Bool = false
     
+    /// user 말풍선 밑에 bottomButtons 보이게 할 것인지
+    var showUserButtomButtons: Bool {
+        self.chatMessage.showBottomButtons
+    }
+    
     // MARK: - View
     var body: some View {
         // 유저 말풍선
@@ -214,19 +219,12 @@ extension ChatBox {
                         .background(boxColor)
                         .foregroundColor(.black)
                         .clipShape(ChatBubbleShape(role: role))
-                        .onTapGesture {
-                            // TODO: 부자연스럽다고 뜰 경우에 말풍선 탭하면 밑에 feedback이 보이도록
-                            if chatMessage.isNatural == false {
-                                print("feedback toggle")
-                            }
-                        }
                 }
             }
             
             // 스피커, 번역 버튼
-            // 문장 바꿔야 하는 경우에는 안보이도록 함
-            // TODO: 바꾼 문장 확인하기 눌렀을 때 없어지도록 추후 변경하기
-            if chatMessage.isNatural == true || chatMessage.isNatural == nil {
+            // 피드백 말풍선 밑에 띄우는 경우에는 안보이도록 함
+            if showUserButtomButtons {
                 bottomButtons
             }
         }
@@ -329,7 +327,7 @@ extension ChatBox {
     }
     
     private var bottomButtons: some View {
-        // TODO: 스피킹, 번역 실행중인지 여부에 따라 버튼 진하기(색상) 다르게
+        // TODO: 번역 실행중인지 여부에 따라 버튼 진하기(색상) 다르게
         HStack (spacing: 8) {
             // model 빼고 왼쪽에 Spacer(user, hint, feedback)
             if role != .model {

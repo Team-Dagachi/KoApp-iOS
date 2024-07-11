@@ -153,9 +153,20 @@ class ChatService {
     }
     
     /// 인덱스에 해당하는 메시지 보여줄지 안보여줄지 토글하기
-    func toggleMessageShowing(index: Int, boolValue: Bool) {
+    func toggleMessageShowing(index: Int) {
         withAnimation {
-            messages[index].isShowing = boolValue
+            messages[index].isShowing.toggle()
+        }
+        print("isShowing Toggled: index\(index) - \(messages[index].isShowing)")
+    }
+    
+    /// 말풍선 밑에 스피커, 번역버튼이 보여줄지 안보여줄지 토글
+    /// (role이 user일 때만 사용됨)
+    /// - 유저의 ChatBox 밑에 피드백 메시지가 뜰 경우 user의 BottomButtons는 안보여야 함
+    /// - 유저의 ChatBox 밑에 피드백 메시지가 없을 경우에는 BottomButtons 보여야 함
+    func toggleUserBottomButtons(index: Int) {
+        withAnimation {
+            messages[index].showBottomButtons.toggle()
         }
     }
     

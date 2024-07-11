@@ -337,7 +337,14 @@ extension ChatBox {
             // 스피커 버튼
             Button(action: {
                 // TTS 호출
-                ttsService.speak(message)
+                if role != .feedback {
+                    // 피드백 아닌 말풍선일 경우, 메시지 텍스트 읽기
+                    ttsService.speak(message)
+                } else {
+                    // 피드백 말풍선일 경우에 피드백 메시지와 고친 이유까지 같이 읽어주기
+                    guard let reasonForChange = self.chatMessage.reasonForChange else { return }
+                    ttsService.speak(message+reasonForChange)
+                }
             }) {
                 // 피드백 진한 주황버튼일 때는 버튼 아이콘 흰색이어야 함
                 Image((role == .feedback && isSpeaking) ? "ic_volume_up_white" : "ic_volume_up")

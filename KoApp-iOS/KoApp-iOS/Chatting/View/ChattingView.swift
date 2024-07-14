@@ -10,8 +10,11 @@ import SwiftUI
 struct ChattingView: View {
     // MARK: - Properties
     // MARK: 채팅 관련 프로퍼티
+    /// 대화 주제
+    let chatTopic: SpeakingSubTopic
+    
     /// Gemini와 채팅기능 담당
-    @State private var chatService = ChatService()
+    @StateObject private var chatService: ChatService
     
     /// 채팅 메시지 배열
     var chatMessages: [ChatMessage] {
@@ -41,6 +44,12 @@ struct ChattingView: View {
     @State private var textInput = ""
     /// (임시22) textField에서 전송할 때 사용
     @State private var sendByText: Bool = false
+    
+    /// 생성자
+    init(chatTopic: SpeakingSubTopic) {
+        self.chatTopic = chatTopic
+        _chatService = StateObject(wrappedValue: ChatService(chatTopic: chatTopic))
+    }
 
 
     //  MARK: - View
@@ -75,7 +84,7 @@ struct ChattingView: View {
                     }
                 }
             }
-            .onChange(of: chatMessages) { _ in
+            .onChange(of: chatMessages.last) { _ in
                 scrollToLastMessage(proxy: proxy)
             }
         }
@@ -276,5 +285,5 @@ struct ChattingView: View {
 }
 
 #Preview {
-    ChattingView()
+    ChattingView(chatTopic: .travel_plan)
 }

@@ -78,7 +78,7 @@ struct Speaking03View: View {
                     .clipShape(RoundedRectangle(cornerRadius: 16))
                     
                     NavigationLink {
-                        ChattingView()
+                        ChattingView(chatTopic: self.subTopic)
                     } label: {
                         Text("연습하기")
                             .font(.H3)

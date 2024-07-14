@@ -37,7 +37,7 @@ struct Speaking02View: View {
                     .padding(.top, 16)
                 
                 Text(mainTopic.rawValue)
-                    .font(.title2) // TODO: H2
+                    .font(.H2)
                     .fontWeight(.bold)
                     .padding(.bottom, 8)
                 

@@ -29,6 +29,10 @@
 		C5F22A7B2C01C01000833AD1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F22A7A2C01C01000833AD1 /* ContentView.swift */; };
 		C5F22A7D2C01C01200833AD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5F22A7C2C01C01200833AD1 /* Assets.xcassets */; };
 		C5F22A802C01C01200833AD1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5F22A7F2C01C01200833AD1 /* Preview Assets.xcassets */; };
+		C5FDCAE82C439B3D00F34F44 /* Speaking03View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FDCAE72C439B3D00F34F44 /* Speaking03View.swift */; };
+		C5FDCAEA2C439B4E00F34F44 /* Speaking03ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FDCAE92C439B4E00F34F44 /* Speaking03ViewModel.swift */; };
+		C5FDCAEE2C43A9FA00F34F44 /* CustomFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FDCAED2C43A9FA00F34F44 /* CustomFonts.swift */; };
+		C5FDCAF02C43AEA400F34F44 /* Speaking04View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FDCAEF2C43AEA400F34F44 /* Speaking04View.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +59,10 @@
 		C5F22A7A2C01C01000833AD1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C5F22A7C2C01C01200833AD1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C5F22A7F2C01C01200833AD1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		C5FDCAE72C439B3D00F34F44 /* Speaking03View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speaking03View.swift; sourceTree = "<group>"; };
+		C5FDCAE92C439B4E00F34F44 /* Speaking03ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speaking03ViewModel.swift; sourceTree = "<group>"; };
+		C5FDCAED2C43A9FA00F34F44 /* CustomFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFonts.swift; sourceTree = "<group>"; };
+		C5FDCAEF2C43AEA400F34F44 /* Speaking04View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speaking04View.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +126,8 @@
 			children = (
 				C5057AC12C345499005291C3 /* SpeakingView.swift */,
 				C55B185C2C3AC615001967AE /* Speaking02View.swift */,
+				C5FDCAE72C439B3D00F34F44 /* Speaking03View.swift */,
+				C5FDCAEF2C43AEA400F34F44 /* Speaking04View.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -162,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				C55B18642C3ADBAF001967AE /* Speaking02ViewModel.swift */,
+				C5FDCAE92C439B4E00F34F44 /* Speaking03ViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -212,7 +223,7 @@
 				C5C9C9E82C09BD5200EF636D /* APIKey */,
 				C5F22A782C01C01000833AD1 /* KoApp_iOSApp.swift */,
 				C5F22A7A2C01C01000833AD1 /* ContentView.swift */,
-				C5F22A7C2C01C01200833AD1 /* Assets.xcassets */,
+				C5FDCAEC2C43A9C800F34F44 /* Resources */,
 				C5F22A7E2C01C01200833AD1 /* Preview Content */,
 			);
 			path = "KoApp-iOS";
@@ -224,6 +235,15 @@
 				C5F22A7F2C01C01200833AD1 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		C5FDCAEC2C43A9C800F34F44 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C5F22A7C2C01C01200833AD1 /* Assets.xcassets */,
+				C5FDCAED2C43A9FA00F34F44 /* CustomFonts.swift */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -304,19 +324,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5FDCAE82C439B3D00F34F44 /* Speaking03View.swift in Sources */,
 				C5F22A7B2C01C01000833AD1 /* ContentView.swift in Sources */,
 				C52EC5AA2C313990004F6BDB /* TTSService.swift in Sources */,
 				C5C9C9EA2C09BD6200EF636D /* APIKey.swift in Sources */,
 				C5BFDDC62C1AAE4500DC2CF9 /* HintService.swift in Sources */,
+				C5FDCAEA2C439B4E00F34F44 /* Speaking03ViewModel.swift in Sources */,
 				C5C9C9F52C09C86600EF636D /* ChatService.swift in Sources */,
 				C5C9C9F12C09C75F00EF636D /* ChatModel.swift in Sources */,
 				C55B18652C3ADBAF001967AE /* Speaking02ViewModel.swift in Sources */,
+				C5FDCAEE2C43A9FA00F34F44 /* CustomFonts.swift in Sources */,
 				C5057AC22C345499005291C3 /* SpeakingView.swift in Sources */,
 				C5057AB82C343747005291C3 /* SketchbookItemView.swift in Sources */,
 				C5315E202C12F02B00C96F96 /* STTService.swift in Sources */,
 				C5F22A792C01C01000833AD1 /* KoApp_iOSApp.swift in Sources */,
 				C5C9C9EF2C09C72900EF636D /* ChattingView.swift in Sources */,
 				C5C9C9F32C09C83900EF636D /* ChatBox.swift in Sources */,
+				C5FDCAF02C43AEA400F34F44 /* Speaking04View.swift in Sources */,
 				C5BFDDC42C1818E000DC2CF9 /* GrammarService.swift in Sources */,
 				C5057ABB2C34377E005291C3 /* SpeakingModel.swift in Sources */,
 				C55B185F2C3AC639001967AE /* Speaking02Row.swift in Sources */,

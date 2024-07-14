@@ -20,7 +20,7 @@ struct Speaking02Row: View {
         HStack {
             Image(isCompleted ? "ic_check_fill" : "ic_check_grey")
             Text(subTopic)
-                .font(.headline) // TODO: H4로 바꾸기
+                .font(.H4)
             Spacer()
             Image("ic_chevron_right")
         }

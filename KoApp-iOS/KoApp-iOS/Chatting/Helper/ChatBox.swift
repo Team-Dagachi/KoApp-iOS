@@ -215,6 +215,7 @@ extension ChatBox {
                         .clipShape(ChatBubbleShape(role: role))
                 } else {
                     Text(message)
+                        .font(.body1)
                         .padding(16)
                         .background(boxColor)
                         .foregroundColor(.black)
@@ -243,6 +244,7 @@ extension ChatBox {
                 } else {
                     // 로딩 끝나면 텍스트 띄우기
                     Text(message)
+                        .font(.body1)
                         .padding(16)
                         .background(boxColor)
                         .foregroundColor(.black)
@@ -278,8 +280,10 @@ extension ChatBox {
                 } else {
                     VStack(alignment: .leading, spacing: 8) {
                         Text(message)
+                            .font(.body1)
                         Divider()
                         Text(chatMessage.reasonForChange ?? "바뀌는 이유")
+                            .font(.body1)
                             .lineLimit(5)
                     }
                     .padding(16)
@@ -301,7 +305,7 @@ extension ChatBox {
 
                 VStack(alignment: .leading) {
                     Text("💡힌트")
-                        .fontWeight(.bold)
+                        .font(.Popup1)
                         .foregroundStyle(Color.black)
                     
                     // 말풍선
@@ -313,6 +317,7 @@ extension ChatBox {
                             .clipShape(ChatBubbleShape(role: role))
                     } else {
                         Text(message)
+                            .font(.body1)
                             .padding(16)
                             .background(boxColor)
                             .foregroundColor(.black)

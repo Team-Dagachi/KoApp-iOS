@@ -9,13 +9,13 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        // TODO: 초기화면으로 변경하기
+        // 일단은 Speaking으로 초기화면 설정해두고, 나중에 개발 진행되면 진행되는대로 바꾸는걸로~_~
+        NavigationStack {
+            SpeakingView()
         }
-        .padding()
+        // 이전 버튼(<) 검은색으로
+        .tint(Color.black)
     }
 }
 

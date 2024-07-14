@@ -44,7 +44,8 @@ struct SketchbookItemView: View {
                 Spacer()
                 
                 Text(topic.rawValue)
-                    .font(.headline) // TODO: H3
+                    .font(.H3)
+                    .foregroundStyle(Color.gray700)
                     .padding(.top, (self.height < 210) ? 20 : 0) // 스케치북 길이가 짧을 때 '미디어와 콘텐츠'가 클립이랑 안겹치도록
                 
                 Image(icon)

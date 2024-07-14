@@ -20,24 +20,6 @@ struct Speaking03View: View {
                 .ignoresSafeArea()
             
             VStack(alignment: .leading) {
-                HStack(spacing: 0) {
-                    Image("ic_chevron_left")
-                    
-                    Spacer()
-                    
-                    Text(subTopic.rawValue)
-                        .font(.H2)
-                    
-                    Spacer()
-
-                    NavigationLink {
-                        Speaking04View()
-                    } label: {
-                        Image("ic_history_24")
-                    }
-                }
-                .padding(.vertical, 17)
-                
                 ScrollView {
                     Text("상황")
                         .font(.H4)
@@ -79,6 +61,7 @@ struct Speaking03View: View {
                     
                     NavigationLink {
                         ChattingView(chatTopic: self.subTopic)
+                            .toolbarRole(.editor)
                     } label: {
                         Text("연습하기")
                             .font(.H3)
@@ -97,6 +80,18 @@ struct Speaking03View: View {
             }
             .padding(.horizontal, 16)
         }
+        .navigationTitle(subTopic.rawValue)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar(content: {
+            ToolbarItem(placement: .topBarTrailing) {
+                NavigationLink {
+                    Speaking04View()
+                        .toolbarRole(.editor)
+                } label: {
+                    Image("ic_history_24")
+                }
+            }
+        })
         
     }
 }

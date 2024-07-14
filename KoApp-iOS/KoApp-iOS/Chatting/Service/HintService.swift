@@ -42,7 +42,6 @@ class HintService {
                     SafetySetting(harmCategory: .sexuallyExplicit, threshold: .blockOnlyHigh),
                     SafetySetting(harmCategory: .dangerousContent, threshold: .blockOnlyHigh)
                   ],
-                // TODO: 모델에 따라 다른 systenInstruction 입력하기
                 systemInstruction: hintInstruction
             )
             

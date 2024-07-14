@@ -21,8 +21,12 @@ struct SpeakingView: View {
             
             LazyVGrid(columns: columns, spacing: geometry.size.height > 700 ? 24 : 20) {
                 ForEach(SpeakingTopic.allCases) { topic in
-                    SketchbookItemView(topic: topic, height: itemHeight)
-                    // TODO: 네비게이션 링크 연결하기
+                    NavigationLink {
+                        Speaking02View(mainTopic: topic)
+                            .toolbar(.hidden)
+                    } label: {
+                        SketchbookItemView(topic: topic, height: itemHeight)
+                    }
                 }
             }
             .padding(.horizontal, geometry.size.width > 400 ? 20 : 10)

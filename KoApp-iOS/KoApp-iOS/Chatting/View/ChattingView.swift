@@ -56,9 +56,12 @@ struct ChattingView: View {
     var body: some View {
         VStack(alignment: .leading) {
             chatMessageList()
+                .padding(.top)
             hintAndRecordingButtons()
             textInputField()
         }
+        .navigationTitle(chatTopic.rawValue)
+        .navigationBarTitleDisplayMode(.inline)
         .foregroundStyle(.white)
         .background {
             ZStack {

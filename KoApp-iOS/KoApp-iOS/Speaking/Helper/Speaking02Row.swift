@@ -21,6 +21,7 @@ struct Speaking02Row: View {
             Image(isCompleted ? "ic_check_fill" : "ic_check_grey")
             Text(subTopic)
                 .font(.H4)
+                .foregroundStyle(Color.black)
             Spacer()
             Image("ic_chevron_right")
         }

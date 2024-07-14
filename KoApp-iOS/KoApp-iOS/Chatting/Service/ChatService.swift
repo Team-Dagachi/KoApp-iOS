@@ -60,7 +60,7 @@ class ChatService: ObservableObject {
     /// Gemini API에 대화를 위한 문장 보내고 응답받기
     /// 1. 문장검사
     /// 2. 대화응답
-    /// 3. AI 대답 받으면 그 대답에 대한 힌트 요청(todo)
+    /// 3. AI 대답 받으면 그 대답에 대한 힌트 요청
     func sendMessage(message: String) async {
         
         loadingResponse = true  // 로딩 시작

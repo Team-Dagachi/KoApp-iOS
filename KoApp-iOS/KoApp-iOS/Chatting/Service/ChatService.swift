@@ -269,33 +269,43 @@ extension ChatService {
     
     /// 주제별 대화를 진행하기 위한 베트남어 힌트를 위한 프롬프트
     static func getHintInstruction(_ topic: SpeakingSubTopic) -> String {
+        
+        // 공통 시작 텍스트: 당신은 베트남 사람이고 한국어를 모릅니다. 한국어로 질문하면 베트남어로 대답해야 합니다.
+        var promptText: String = "Bạn là người Việt Nam và bạn không biết tiếng Hàn. Nếu hỏi bằng tiếng Hàn thì phải trả lời bằng tiếng Việt. "
+        
+        // 주제 안내하는 텍스트
         switch topic {
         case .family_introduce:
-            return "Bạn là người Việt Nam và bạn không biết tiếng Hàn. Nếu được hỏi bằng tiếng Hàn, bạn phải trả lời bằng tiếng Việt. Hãy nói về điểm đến, bạn sẽ đi cùng ai, kế hoạch du lịch cụ thể của bạn, v.v. Hãy trả lời ngắn gọn. Không sử dụng biểu tượng cảm xúc khi trả lời."
+            promptText += "Nói về việc giới thiệu gia đình của bạn, bao gồm có bao nhiêu người, họ làm gì, giới thiệu anh chị em và những kỷ niệm bạn có với gia đình. "
         case .school_teacher:
-            return "Bạn là người Việt Nam và bạn không biết tiếng Hàn. Nếu hỏi bằng tiếng Hàn thì phải trả lời bằng tiếng Việt. Nói về cuộc sống học đường, cuộc sống ở Hàn Quốc, những khó khăn khi tham gia lớp học tiếng Hàn và những dự định cụ thể trong tương lai. Hãy trả lời ngắn gọn. Không sử dụng biểu tượng cảm xúc khi trả lời."
+            promptText += "Nói về cuộc sống học đường, cuộc sống ở Hàn Quốc, những khó khăn khi tham gia lớp học tiếng Hàn và những dự định cụ thể trong tương lai. "
         case .school_stranger:
-            return "Bạn là người Việt Nam và bạn không biết tiếng Hàn. Nếu hỏi bằng tiếng Hàn thì phải trả lời bằng tiếng Việt. Hãy nói về việc bạn đã sẵn sàng làm bài tập về nhà chưa, ngày mai bạn cần mang theo những gì, sở thích và sở thích của bạn, những khó khăn khi học tiếng Hàn và những kế hoạch cụ thể trong tương lai của bạn. Hãy trả lời ngắn gọn. Không sử dụng biểu tượng cảm xúc khi trả lời."
+            promptText += "Nói về việc bạn đã sẵn sàng làm bài tập về nhà chưa, ngày mai bạn cần mang theo những gì, sở thích và sở thích của bạn, những khó khăn khi học tiếng Hàn và những kế hoạch cụ thể trong tương lai của bạn. "
         case .weatherSeason_weather:
-            return "Bạn là người Việt Nam và bạn không biết tiếng Hàn. Nếu hỏi bằng tiếng Hàn thì phải trả lời bằng tiếng Việt. Nói về thời tiết, bao gồm hôm nay hôm nay như thế nào, hôm nay bạn mặc gì và thời tiết bạn thích như thế nào. Hãy trả lời ngắn gọn. Không sử dụng biểu tượng cảm xúc khi trả lời."
+            promptText += "Nói về thời tiết, bao gồm hôm nay hôm nay như thế nào, hôm nay bạn mặc gì và thời tiết bạn thích như thế nào. "
         case .weatherSeason_Season:
-            return "Bạn là người Việt Nam và bạn không biết tiếng Hàn. Nếu hỏi bằng tiếng Hàn thì phải trả lời bằng tiếng Việt. Nói về các mùa, bao gồm mùa nào bạn thích và tại sao, những hoạt động nào bạn có thể làm trong mùa, món ăn nào bạn thích trong mỗi mùa và mùa nào bạn không thích. Hãy trả lời ngắn gọn. Không sử dụng biểu tượng cảm xúc khi trả lời."
+            promptText += "Nói về các mùa, bao gồm mùa nào bạn thích và tại sao, những hoạt động nào bạn có thể làm trong mùa, món ăn nào bạn thích trong mỗi mùa và mùa nào bạn không thích. "
         case .travel_plan:
-            return "Bạn là người Việt Nam và bạn không biết tiếng Hàn. Nếu được hỏi bằng tiếng Hàn, bạn phải trả lời bằng tiếng Việt. Hãy nói về điểm đến, bạn sẽ đi cùng ai, kế hoạch du lịch cụ thể của bạn, v.v. Hãy trả lời ngắn gọn. Không sử dụng biểu tượng cảm xúc khi trả lời."
+            promptText += "Nói về nơi bạn sẽ đến, bạn sẽ đi du lịch cùng ai và kế hoạch du lịch cụ thể của bạn. "
         case .travel_experience:
-            return "Bạn là người Việt Nam và bạn không biết tiếng Hàn. Nếu hỏi bằng tiếng Hàn thì phải trả lời bằng tiếng Việt. Nói về điểm đến, trải nghiệm du lịch, phong cách du lịch yêu thích, v.v. Hãy trả lời ngắn gọn. Không sử dụng biểu tượng cảm xúc khi trả lời."
+            promptText += "Nói về điểm đến, trải nghiệm du lịch, phong cách du lịch yêu thích, v.v. "
         case .shopping_cafe:
-            return "Bạn là người Việt Nam và bạn không biết tiếng Hàn. Nếu hỏi bằng tiếng Hàn thì phải trả lời bằng tiếng Việt. Trả lời đoạn hội thoại về quá trình gọi đồ uống. Hãy trả lời ngắn gọn. Không sử dụng biểu tượng cảm xúc khi trả lời."
+            promptText += "Trả lời đoạn hội thoại về quá trình gọi đồ uống. "
         case .shopping_cloth:
-            return "Bạn là người Việt Nam và bạn không biết tiếng Hàn. Nếu hỏi bằng tiếng Hàn thì phải trả lời bằng tiếng Việt. Trả lời đoạn hội thoại về quá trình mua sắm tại một cửa hàng quần áo. Hãy trả lời ngắn gọn. Không sử dụng biểu tượng cảm xúc khi trả lời."
+            promptText += "Trả lời đoạn hội thoại về quá trình mua sắm tại một cửa hàng quần áo. "
         case .shopping_mart:
-            return "Bạn là người Việt Nam và bạn không biết tiếng Hàn. Nếu hỏi bằng tiếng Hàn thì phải trả lời bằng tiếng Việt. Trả lời đoạn hội thoại về quá trình mua sắm ở siêu thị. Hãy trả lời ngắn gọn. Không sử dụng biểu tượng cảm xúc khi trả lời."
+            promptText += "Trả lời đoạn hội thoại về quá trình mua sắm ở siêu thị. "
         case .media_kpop:
-            return "Bạn là người Việt Nam và bạn không biết tiếng Hàn. Nếu hỏi bằng tiếng Hàn thì phải trả lời bằng tiếng Việt. Nói về ca sĩ K-POP yêu thích của bạn, bài hát yêu thích, fanart, hàng hóa, trải nghiệm tham quan buổi hòa nhạc, v.v. Hãy trả lời ngắn gọn. Không sử dụng biểu tượng cảm xúc khi trả lời."
+            promptText += "Nói về ca sĩ K-POP yêu thích của bạn, bài hát yêu thích, fanart, hàng hóa, trải nghiệm tham quan buổi hòa nhạc, v.v. "
         case .media_drama:
-            return "Bạn là người Việt Nam và bạn không biết tiếng Hàn. Nếu hỏi bằng tiếng Hàn thì phải trả lời bằng tiếng Việt. Nói về những bộ phim truyền hình, điện ảnh Hàn Quốc yêu thích, thể loại yêu thích, diễn viên và lý do yêu thích, liên hoan phim, trải nghiệm rạp chiếu phim, v.v. Hãy trả lời ngắn gọn. Không sử dụng biểu tượng cảm xúc khi trả lời."
+            promptText += "Nói về những bộ phim truyền hình, điện ảnh Hàn Quốc yêu thích, thể loại yêu thích, diễn viên và lý do yêu thích, liên hoan phim, trải nghiệm rạp chiếu phim, v.v. "
         case .media_game:
-            return "Bạn là người Việt Nam và bạn không biết tiếng Hàn. Nếu hỏi bằng tiếng Hàn thì phải trả lời bằng tiếng Việt. Nói về các trò chơi yêu thích của bạn, lý do bạn thích chúng, thể loại trò chơi yêu thích và trải nghiệm chơi trò chơi của bạn. Hãy trả lời ngắn gọn. Không sử dụng biểu tượng cảm xúc khi trả lời."
+            promptText += "Nói về các trò chơi yêu thích của bạn, lý do bạn thích chúng, thể loại trò chơi yêu thích và trải nghiệm chơi trò chơi của bạn. "
         }
+        
+        // 공통 마무리 텍스트: 두 문장으로 간략하게 답변해 주세요. 답장할 때 이모티콘을 사용하지 마세요.
+        promptText += "Xin trả lời ngắn gọn bằng hai câu. Không sử dụng biểu tượng cảm xúc khi trả lời."
+        
+        return promptText
     }
 }

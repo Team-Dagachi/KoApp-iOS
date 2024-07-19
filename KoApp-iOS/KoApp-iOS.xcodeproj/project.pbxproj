@@ -26,7 +26,6 @@
 		C5C9C9F32C09C83900EF636D /* ChatBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C9C9F22C09C83900EF636D /* ChatBox.swift */; };
 		C5C9C9F52C09C86600EF636D /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C9C9F42C09C86600EF636D /* ChatService.swift */; };
 		C5EB7CF22C4A4E140038C237 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = C5EB7CF12C4A4E140038C237 /* Alamofire */; };
-		C5EB7CF42C4A4E140038C237 /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = C5EB7CF32C4A4E140038C237 /* AlamofireDynamic */; };
 		C5F22A792C01C01000833AD1 /* KoApp_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F22A782C01C01000833AD1 /* KoApp_iOSApp.swift */; };
 		C5F22A7B2C01C01000833AD1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F22A7A2C01C01000833AD1 /* ContentView.swift */; };
 		C5F22A7D2C01C01200833AD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5F22A7C2C01C01200833AD1 /* Assets.xcassets */; };
@@ -73,7 +72,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5C9C9E72C09BC5A00EF636D /* GoogleGenerativeAI in Frameworks */,
-				C5EB7CF42C4A4E140038C237 /* AlamofireDynamic in Frameworks */,
 				C5EB7CF22C4A4E140038C237 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -269,7 +267,6 @@
 			packageProductDependencies = (
 				C5C9C9E62C09BC5A00EF636D /* GoogleGenerativeAI */,
 				C5EB7CF12C4A4E140038C237 /* Alamofire */,
-				C5EB7CF32C4A4E140038C237 /* AlamofireDynamic */,
 			);
 			productName = "KoApp-iOS";
 			productReference = C5F22A752C01C01000833AD1 /* KoApp-iOS.app */;
@@ -600,11 +597,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C5EB7CF02C4A4E140038C237 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
-		};
-		C5EB7CF32C4A4E140038C237 /* AlamofireDynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C5EB7CF02C4A4E140038C237 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = AlamofireDynamic;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

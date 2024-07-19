@@ -62,6 +62,12 @@ struct ChattingView: View {
         }
         .navigationTitle(chatTopic.rawValue)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar(content: {
+            ToolbarItem(placement: .principal) {
+                Text(chatTopic.rawValue).font(.H2)
+                    .foregroundStyle(Color.black)
+            }
+        })
         .foregroundStyle(.white)
         .background {
             ZStack {

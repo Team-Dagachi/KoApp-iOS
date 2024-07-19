@@ -80,9 +80,11 @@ struct Speaking03View: View {
             }
             .padding(.horizontal, 16)
         }
-        .navigationTitle(subTopic.rawValue)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(content: {
+            ToolbarItem(placement: .principal) {
+                Text(subTopic.rawValue).font(.H2)
+            }
             ToolbarItem(placement: .topBarTrailing) {
                 NavigationLink {
                     Speaking04View()

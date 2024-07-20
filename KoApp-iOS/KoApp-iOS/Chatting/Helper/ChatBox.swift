@@ -9,13 +9,27 @@ import SwiftUI
 import Foundation
 
 struct ChatBox: View {
+    // FIXME: 힌트 번역된 상태에서 말하거나 텍스트 입력하기 시작하면 progressView로 바뀐다...어째서....
     // MARK: - Property
     /// id, role, message 값 들어있는 메시지 객체
     let chatMessage: ChatMessage
     
     /// 메시지 텍스트
     var message: String {
-        chatMessage.message
+        if isTranslating == false {
+            chatMessage.message
+        } else {
+            translateService.translatedText
+        }
+    }
+    
+    /// role이 피드백일 경우, 바뀌는 이유 텍스트
+    var reasonForChange: String? {
+//        if isTranslating == false {
+            chatMessage.reasonForChange
+//        } else {
+//            translateService.reasonTranslated
+//        }
     }
     
     /// 메시지 역할
@@ -91,6 +105,9 @@ struct ChatBox: View {
     private var isSpeaking: Bool {
         ttsService.isSpeaking
     }
+    
+    /// 번역 호출용
+    @ObservedObject var translateService = TranslateService()
     
     /// 번역된 텍스트가 보이는지
     @State var isTranslating: Bool = false
@@ -282,7 +299,7 @@ extension ChatBox {
                         Text(message)
                             .font(.body1)
                         Divider()
-                        Text(chatMessage.reasonForChange ?? "바뀌는 이유")
+                        Text(self.reasonForChange ?? "바뀌는 이유")
                             .font(.body1)
                             .lineLimit(5)
                     }
@@ -332,14 +349,13 @@ extension ChatBox {
     }
     
     private var bottomButtons: some View {
-        // TODO: 번역 실행중인지 여부에 따라 버튼 진하기(색상) 다르게
         HStack (spacing: 8) {
             // model 빼고 왼쪽에 Spacer(user, hint, feedback)
             if role != .model {
                 Spacer()
             }
             
-            // 스피커 버튼
+            // MARK: 스피커 버튼
             Button(action: {
                 // TTS 호출
                 if role != .feedback {
@@ -358,11 +374,22 @@ extension ChatBox {
                     .clipShape(Circle())
                     .shadow(color: Color(red: 0.24, green: 0.26, blue: 0.27).opacity(0.12), radius: 4, x: 0, y: 4)
             }
-            // 번역 버튼
+            // MARK: 번역 버튼
             Button(action: {
-                // TODO: 번역 호출
                 isTranslating.toggle()
-                print("user_번역 호출")
+
+                if isTranslating {
+                    // 번역 호출
+                    translateService.translateText(text: chatMessage.message)
+                    
+//                    // feedback 말풍선일 경우 reasonForChange도 번역해주기?
+//                    if role == .feedback, let reason = chatMessage.reasonForChange {
+//                        
+//                        print(message + ";" + reason)
+//                        
+//                        translateService.translateText(text: (message + ";" + reason), isFeedback: role == .feedback)
+//                    }
+                }
             }) {
                 // 피드백 진한 주황버튼일 때는 버튼 아이콘 흰색이어야 함
                 Image((role == .feedback && isTranslating) ? "ic_translate_white" : "ic_translate")

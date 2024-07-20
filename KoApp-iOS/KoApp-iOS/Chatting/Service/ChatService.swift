@@ -177,7 +177,7 @@ class ChatService: ObservableObject {
     /// 힌트는 요청한 경우에만 hintService 활용해 힌트 보여주기
     func requestHint() async {
         // 다시 시도해주세요가 아닐 경우(모델의 대답이 에러가 아닌 경우)에만 진행
-        if messages.last?.message != "다시 시도해주세요." {
+        if let lastMessage = messages.last?.message, lastMessage != "다시 시도해주세요." {
             
             // 로딩되는 과정 보여주기 위해 일단 힌트 메시지 객체 추가
             withAnimation {
@@ -185,7 +185,7 @@ class ChatService: ObservableObject {
             }
             
             // 힌트 요청
-            if let hintMessage = await hintService.requestHint(sentence: messages.last!.message) {
+            if let hintMessage = await hintService.requestHint(sentence: lastMessage) {
                 
                 // 마지막 메시지 객체에 요청받은 힌트 메시지 추가
                 withAnimation {
@@ -303,8 +303,8 @@ extension ChatService {
             promptText += "Nói về các trò chơi yêu thích của bạn, lý do bạn thích chúng, thể loại trò chơi yêu thích và trải nghiệm chơi trò chơi của bạn. "
         }
         
-        // 공통 마무리 텍스트: 두 문장으로 간략하게 답변해 주세요. 답장할 때 이모티콘을 사용하지 마세요.
-        promptText += "Xin trả lời ngắn gọn bằng hai câu. Không sử dụng biểu tượng cảm xúc khi trả lời."
+        // 공통 마무리 텍스트: 답변은 짧게 유지하는 것을 잊지 마세요. 두 문장을 넘지 마세요. 답장할 때 이모티콘을 사용하지 마세요.
+        promptText += "Hãy nhớ trả lời ngắn gọn, không quá hai câu. Không sử dụng biểu tượng cảm xúc khi trả lời."
         
         return promptText
     }

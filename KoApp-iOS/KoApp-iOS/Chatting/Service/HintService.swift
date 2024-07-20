@@ -29,7 +29,7 @@ class HintService {
         do {
             let config = GenerationConfig(
                 temperature: 1,
-                maxOutputTokens: 50
+                maxOutputTokens: 100
             )
             
             let model = GenerativeModel(

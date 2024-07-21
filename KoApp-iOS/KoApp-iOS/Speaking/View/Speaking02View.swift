@@ -17,14 +17,6 @@ struct Speaking02View: View {
         Speaking02ViewModel(mainTopic: self.mainTopic)
     }
     
-    var subTopics: [SpeakingSubTopic] {
-        vm.subTopics
-    }
-    
-    var completed: [Bool] {
-        vm.completed
-    }
-    
     var body: some View {
         ZStack(alignment: .top) {
             Button(action: {
@@ -40,23 +32,23 @@ struct Speaking02View: View {
             .padding(.top, 24)
             
             VStack(spacing: 16.0) {
-                Image(mainTopic.icon)
+                Image(vm.icon)
                     .padding(.top, 16)
                 
-                Text(mainTopic.rawValue)
+                Text(SpeakingData.topicName[mainTopic] ?? "")
                     .font(.H2)
                     .fontWeight(.bold)
                     .padding(.bottom, 8)
                 
-                ForEach(Array(subTopics.indices), id: \.self) { index in
-                    let topic = subTopics[index]
-                    let complete = completed[index]
+                ForEach(Array(vm.subTopics.indices), id: \.self) { index in
+                    let subtopic = vm.subTopics[index]
+                    let complete = vm.completed[index]
                     
                     NavigationLink {
-                        Speaking03View(subTopic: topic)
+                        Speaking03View(subTopic: subtopic)
                             .toolbarRole(.editor)
                     } label: {
-                        Speaking02Row(isCompleted: complete, subTopic: topic.rawValue)
+                        Speaking02Row(isCompleted: complete, subTopic: subtopic)
                             .padding(.horizontal, 16)
                     }
 

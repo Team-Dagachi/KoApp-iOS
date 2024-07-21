@@ -52,6 +52,7 @@ struct Speaking03View: View {
                                 .padding(.horizontal, 16)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .background(Color.white)
+                            // 마지막 항목에는 Divider 없음
                             if index < vm.speakingTips.count - 1 {
                                 Divider()
                             }
@@ -81,19 +82,20 @@ struct Speaking03View: View {
             .padding(.horizontal, 16)
         }
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar(content: {
+        .toolbar {
             ToolbarItem(placement: .principal) {
-                Text(subTopic.rawValue).font(.H2)
+                Text(SpeakingData.subTopicName[subTopic] ?? "").font(.H2)
             }
+            // 표현집 페이지로 연결시키는 아이콘
             ToolbarItem(placement: .topBarTrailing) {
                 NavigationLink {
-                    Speaking04View()
+                    Speaking04View(chatTopic: subTopic)
                         .toolbarRole(.editor)
                 } label: {
                     Image("ic_history_24")
                 }
             }
-        })
+        }
         
     }
 }

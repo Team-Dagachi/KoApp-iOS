@@ -16,6 +16,9 @@ struct ContentView: View {
         }
         // 이전 버튼(<) 검은색으로
         .tint(Color.black)
+        .task {
+            print("ContentView OPENED")
+        }
     }
 }
 

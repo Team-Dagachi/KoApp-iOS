@@ -48,6 +48,7 @@ struct ChattingView: View {
     /// 생성자
     init(chatTopic: SpeakingSubTopic) {
         self.chatTopic = chatTopic
+        // StateObject 래퍼 자체에 접근하여 초기화
         _chatService = StateObject(wrappedValue: ChatService(chatTopic: chatTopic))
     }
 
@@ -60,11 +61,10 @@ struct ChattingView: View {
             hintAndRecordingButtons()
             textInputField()
         }
-        .navigationTitle(chatTopic.rawValue)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(content: {
             ToolbarItem(placement: .principal) {
-                Text(chatTopic.rawValue).font(.H2)
+                Text(SpeakingData.subTopicName[chatTopic] ?? "").font(.H2)
                     .foregroundStyle(Color.black)
             }
         })
@@ -93,7 +93,7 @@ struct ChattingView: View {
                     }
                 }
             }
-            .onChange(of: chatMessages.last) { _ in
+            .onChange(of: chatMessages.last) {
                 scrollToLastMessage(proxy: proxy)
             }
         }

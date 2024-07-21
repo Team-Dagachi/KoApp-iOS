@@ -14,12 +14,12 @@ struct Speaking02Row: View {
     /// 말하기 상황주제 텍스트
     /// - ex) 여행 계획 이야기하기
     /// - ex) 좋아하는 한국 드라마 말하기
-    let subTopic: String
+    let subTopic: SpeakingSubTopic
     
     var body: some View {
         HStack {
             Image(isCompleted ? "ic_check_fill" : "ic_check_grey")
-            Text(subTopic)
+            Text(SpeakingData.subTopicName[subTopic] ?? "")
                 .font(.H4)
                 .foregroundStyle(Color.black)
             Spacer()
@@ -39,6 +39,6 @@ struct Speaking02Row: View {
     ZStack {
         Color.yellow
         
-        Speaking02Row(isCompleted: true, subTopic: "여행 계획 이야기하기")
+        Speaking02Row(isCompleted: true, subTopic: .travel_plan)
     }
 }

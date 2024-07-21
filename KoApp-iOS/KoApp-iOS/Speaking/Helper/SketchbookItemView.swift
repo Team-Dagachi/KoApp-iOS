@@ -21,7 +21,7 @@ struct SketchbookItemView: View {
         
     /// 아이콘 이미지
     var icon: String {
-        topic.icon
+        SpeakingData.topicIconName[topic] ?? ""
     }
     
     /// 테마 색상
@@ -43,7 +43,7 @@ struct SketchbookItemView: View {
             VStack {
                 Spacer()
                 
-                Text(topic.rawValue)
+                Text(SpeakingData.topicName[topic] ?? "주제")
                     .font(.H3)
                     .foregroundStyle(Color.gray700)
                     .padding(.top, (self.height < 210) ? 20 : 0) // 스케치북 길이가 짧을 때 '미디어와 콘텐츠'가 클립이랑 안겹치도록

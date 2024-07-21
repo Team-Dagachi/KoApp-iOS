@@ -12,6 +12,7 @@
 		C5057ABF2C34404A005291C3 /* CustomProgessBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5057ABE2C34404A005291C3 /* CustomProgessBar.swift */; };
 		C5057AC22C345499005291C3 /* SpeakingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5057AC12C345499005291C3 /* SpeakingView.swift */; };
 		C518F6DA2C4B86B20069C0C1 /* LangageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C518F6D92C4B86B20069C0C1 /* LangageService.swift */; };
+		C518F6DD2C4D08420069C0C1 /* SpeakingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C518F6DC2C4D08420069C0C1 /* SpeakingData.swift */; };
 		C52EC5AA2C313990004F6BDB /* TTSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52EC5A92C313990004F6BDB /* TTSService.swift */; };
 		C5315E202C12F02B00C96F96 /* STTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5315E1F2C12F02B00C96F96 /* STTService.swift */; };
 		C55B185D2C3AC615001967AE /* Speaking02View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55B185C2C3AC615001967AE /* Speaking02View.swift */; };
@@ -44,6 +45,7 @@
 		C5057ABE2C34404A005291C3 /* CustomProgessBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgessBar.swift; sourceTree = "<group>"; };
 		C5057AC12C345499005291C3 /* SpeakingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakingView.swift; sourceTree = "<group>"; };
 		C518F6D92C4B86B20069C0C1 /* LangageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LangageService.swift; sourceTree = "<group>"; };
+		C518F6DC2C4D08420069C0C1 /* SpeakingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakingData.swift; sourceTree = "<group>"; };
 		C52EC5A92C313990004F6BDB /* TTSService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSService.swift; sourceTree = "<group>"; };
 		C5315E1F2C12F02B00C96F96 /* STTService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STTService.swift; sourceTree = "<group>"; };
 		C5315E212C135CDB00C96F96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 		C5057AB52C3436DD005291C3 /* Speaking */ = {
 			isa = PBXGroup;
 			children = (
+				C518F6DB2C4D08290069C0C1 /* Data */,
 				C55B18632C3ADB94001967AE /* ViewModel */,
 				C5057AC02C345488005291C3 /* View */,
 				C5057AB92C343771005291C3 /* Model */,
@@ -145,6 +148,14 @@
 				C518F6D92C4B86B20069C0C1 /* LangageService.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		C518F6DB2C4D08290069C0C1 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				C518F6DC2C4D08420069C0C1 /* SpeakingData.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 		C53A34B32C380E41008A88F0 /* View */ = {
@@ -344,6 +355,7 @@
 			files = (
 				C5FDCAE82C439B3D00F34F44 /* Speaking03View.swift in Sources */,
 				C5F22A7B2C01C01000833AD1 /* ContentView.swift in Sources */,
+				C518F6DD2C4D08420069C0C1 /* SpeakingData.swift in Sources */,
 				C52EC5AA2C313990004F6BDB /* TTSService.swift in Sources */,
 				C5C9C9EA2C09BD6200EF636D /* APIKey.swift in Sources */,
 				C5BFDDC62C1AAE4500DC2CF9 /* HintService.swift in Sources */,

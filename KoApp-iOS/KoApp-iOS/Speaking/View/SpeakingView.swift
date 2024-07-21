@@ -33,6 +33,9 @@ struct SpeakingView: View {
             .frame(width: geometry.size.width)
         }
         .background(Color.main10)
+        .task {
+            print("SpeakingView 켜짐!")
+        }
     }
 }
 

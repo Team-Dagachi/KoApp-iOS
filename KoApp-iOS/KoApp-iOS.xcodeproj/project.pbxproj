@@ -15,6 +15,7 @@
 		C518F6DD2C4D08420069C0C1 /* SpeakingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C518F6DC2C4D08420069C0C1 /* SpeakingData.swift */; };
 		C52EC5AA2C313990004F6BDB /* TTSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52EC5A92C313990004F6BDB /* TTSService.swift */; };
 		C5315E202C12F02B00C96F96 /* STTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5315E1F2C12F02B00C96F96 /* STTService.swift */; };
+		C5514AC12C5642530098564E /* PlistDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5514AC02C5642530098564E /* PlistDataLoader.swift */; };
 		C55B185D2C3AC615001967AE /* Speaking02View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55B185C2C3AC615001967AE /* Speaking02View.swift */; };
 		C55B185F2C3AC639001967AE /* Speaking02Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55B185E2C3AC639001967AE /* Speaking02Row.swift */; };
 		C55B18652C3ADBAF001967AE /* Speaking02ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55B18642C3ADBAF001967AE /* Speaking02ViewModel.swift */; };
@@ -49,6 +50,8 @@
 		C52EC5A92C313990004F6BDB /* TTSService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSService.swift; sourceTree = "<group>"; };
 		C5315E1F2C12F02B00C96F96 /* STTService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STTService.swift; sourceTree = "<group>"; };
 		C5315E212C135CDB00C96F96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		C5514ABE2C562B150098564E /* SpeakingData.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SpeakingData.plist; sourceTree = "<group>"; };
+		C5514AC02C5642530098564E /* PlistDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistDataLoader.swift; sourceTree = "<group>"; };
 		C55B185C2C3AC615001967AE /* Speaking02View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speaking02View.swift; sourceTree = "<group>"; };
 		C55B185E2C3AC639001967AE /* Speaking02Row.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speaking02Row.swift; sourceTree = "<group>"; };
 		C55B18642C3ADBAF001967AE /* Speaking02ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speaking02ViewModel.swift; sourceTree = "<group>"; };
@@ -117,6 +120,7 @@
 		C5057ABC2C34402B005291C3 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				C5514ABD2C562ADF0098564E /* Data */,
 				C518F6D82C4B86930069C0C1 /* Service */,
 				C5057ABD2C344033005291C3 /* Helper */,
 			);
@@ -193,6 +197,15 @@
 				C5FDCAF12C442A8800F34F44 /* TranslateService.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		C5514ABD2C562ADF0098564E /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				C5514ABE2C562B150098564E /* SpeakingData.plist */,
+				C5514AC02C5642530098564E /* PlistDataLoader.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 		C55B18632C3ADB94001967AE /* ViewModel */ = {
@@ -342,6 +355,7 @@
 			files = (
 				C5F22A802C01C01200833AD1 /* Preview Assets.xcassets in Resources */,
 				C5F22A7D2C01C01200833AD1 /* Assets.xcassets in Resources */,
+				C5514ABF2C562B150098564E /* SpeakingData.plist in Resources */,
 				C5C9C9EC2C09BFF700EF636D /* GenerativeAI-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -374,6 +388,7 @@
 				C5FDCAF02C43AEA400F34F44 /* Speaking04View.swift in Sources */,
 				C5BFDDC42C1818E000DC2CF9 /* GrammarService.swift in Sources */,
 				C5057ABB2C34377E005291C3 /* SpeakingModel.swift in Sources */,
+				C5514AC12C5642530098564E /* PlistDataLoader.swift in Sources */,
 				C55B185F2C3AC639001967AE /* Speaking02Row.swift in Sources */,
 				C55B185D2C3AC615001967AE /* Speaking02View.swift in Sources */,
 				C5FDCAF22C442A8800F34F44 /* TranslateService.swift in Sources */,

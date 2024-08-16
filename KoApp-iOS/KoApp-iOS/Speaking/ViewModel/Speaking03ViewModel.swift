@@ -17,10 +17,15 @@ struct Speaking03ViewModel {
     /// 대화 팁
     let speakingTips: [String]
     
+    /// 스피킹에 필요한 데이터
+    let speakingData: SpeakingData
     
-    init(subTopic: SpeakingSubTopic) {
+    
+    init(subTopic: SpeakingSubTopic, speakingData: SpeakingData = PlistDataLoader.loadSpeakingData()!) {
         self.subTopic = subTopic
-        self.situation = SpeakingData.situations[subTopic] ?? ""
-        self.speakingTips = SpeakingData.tips[subTopic] ?? []
+        self.situation = speakingData.situations[subTopic.rawValue] ?? ""
+        self.speakingTips = speakingData.tips[subTopic.rawValue] ?? []
+        
+        self.speakingData = speakingData
     }
 }

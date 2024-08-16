@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct SpeakingView: View {
+    // MARK: - Properties
     let columns: [GridItem] = [
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
         
+    // MARK: - View
     var body: some View {
         GeometryReader { geometry in
             // TODO: -100 나중에 상황에 맞게 바꾸기

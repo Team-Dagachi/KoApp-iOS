@@ -10,6 +10,10 @@ import SwiftUI
 struct ChattingView: View {
     // MARK: - Properties
     // MARK: 채팅 관련 프로퍼티
+    
+    /// 채팅 관련 데이터
+    let speakingData: SpeakingData = PlistDataLoader.loadSpeakingData()!
+    
     /// 대화 주제
     let chatTopic: SpeakingSubTopic
     
@@ -64,7 +68,7 @@ struct ChattingView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(content: {
             ToolbarItem(placement: .principal) {
-                Text(SpeakingData.subTopicName[chatTopic] ?? "").font(.H2)
+                Text(speakingData.subTopicName[chatTopic.rawValue] ?? "").font(.H2)
                     .foregroundStyle(Color.black)
             }
         })

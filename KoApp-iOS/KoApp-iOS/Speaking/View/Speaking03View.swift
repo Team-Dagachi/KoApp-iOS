@@ -84,7 +84,7 @@ struct Speaking03View: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text(SpeakingData.subTopicName[subTopic] ?? "").font(.H2)
+                Text(vm.speakingData.subTopicName[subTopic.rawValue] ?? "").font(.H2)
             }
             // 표현집 페이지로 연결시키는 아이콘
             ToolbarItem(placement: .topBarTrailing) {

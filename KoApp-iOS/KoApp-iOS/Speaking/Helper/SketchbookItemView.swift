@@ -18,10 +18,13 @@ struct SketchbookItemView: View {
     /// API에서 입력받을 진행도
     // 일단 랜덤
     let progressValue: Float = Float.random(in: 0...1)
+    
+    /// 스피킹 데이터
+    let speakingData: SpeakingData = PlistDataLoader.loadSpeakingData()!
         
     /// 아이콘 이미지
     var icon: String {
-        SpeakingData.topicIconName[topic] ?? ""
+        self.speakingData.topicIconName[topic.rawValue] ?? ""
     }
     
     /// 테마 색상
@@ -43,7 +46,7 @@ struct SketchbookItemView: View {
             VStack {
                 Spacer()
                 
-                Text(SpeakingData.topicName[topic] ?? "주제")
+                Text(self.speakingData.topicName[topic.rawValue] ?? "주제")
                     .font(.H3)
                     .foregroundStyle(Color.gray700)
                     .padding(.top, (self.height < 210) ? 20 : 0) // 스케치북 길이가 짧을 때 '미디어와 콘텐츠'가 클립이랑 안겹치도록

@@ -35,7 +35,7 @@ struct Speaking02View: View {
                 Image(vm.icon)
                     .padding(.top, 16)
                 
-                Text(SpeakingData.topicName[mainTopic] ?? "")
+                Text(vm.speakingData.topicName[mainTopic.rawValue] ?? "")
                     .font(.H2)
                     .fontWeight(.bold)
                     .padding(.bottom, 8)
@@ -48,7 +48,7 @@ struct Speaking02View: View {
                         Speaking03View(subTopic: subtopic)
                             .toolbarRole(.editor)
                     } label: {
-                        Speaking02Row(isCompleted: complete, subTopic: subtopic)
+                        Speaking02Row(isCompleted: complete, subTopic: vm.speakingData.subTopicName[subtopic.rawValue] ?? "")
                             .padding(.horizontal, 16)
                     }
 

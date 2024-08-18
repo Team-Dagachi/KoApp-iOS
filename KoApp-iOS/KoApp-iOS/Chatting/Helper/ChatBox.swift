@@ -16,7 +16,8 @@ struct ChatBox: View {
     
     /// 메시지 텍스트
     var message: String {
-        if isTranslating == false {
+        // 피드백 말풍선일 경우 reasonForChange가 번역될 예정
+        if isTranslating == false || role == .feedback {
             chatMessage.message
         } else {
             translateService.translatedText
@@ -25,11 +26,11 @@ struct ChatBox: View {
     
     /// role이 피드백일 경우, 바뀌는 이유 텍스트
     var reasonForChange: String? {
-//        if isTranslating == false {
-            chatMessage.reasonForChange
-//        } else {
-//            translateService.reasonTranslated
-//        }
+        if isTranslating == false {
+            chatMessage.reasonForChange ?? "바뀌는 이유"
+        } else {
+            translateService.translatedText
+        }
     }
     
     /// 메시지 역할
@@ -48,6 +49,10 @@ struct ChatBox: View {
             return .main50
         case .feedback:
             return .orangeLight
+        case .ex_user:
+            return .main50
+        case .ex_model:
+            return .white
         }
     }
     
@@ -70,6 +75,14 @@ struct ChatBox: View {
             if isSpeaking {
                 return .orangeDark
             } else { return .orangeLight }
+        case .ex_user:
+            if isSpeaking {
+                return .main70
+            } else { return .main30 }
+        case .ex_model:
+            if isSpeaking {
+                return .gray400
+            } else { return .white }
         }
     }
     
@@ -92,6 +105,14 @@ struct ChatBox: View {
             if isTranslating {
                 return .orangeDark
             } else { return .orangeLight }
+        case .ex_user:
+            if isTranslating {
+                return .main70
+            } else { return .main30 }
+        case .ex_model:
+            if isTranslating {
+                return .gray400
+            } else { return .white }
         }
     }
     
@@ -119,22 +140,31 @@ struct ChatBox: View {
     
     // MARK: - View
     var body: some View {
+        switch role {
         // 유저 말풍선
-        if role == .user {
+        case .user:
             userBubble
             
         // 모델 말풍선
-        } else if role == .model {
+        case .model:
             modelBubble
             
         // 피드백 말풍선
-        } else if role == .feedback {
+        case .feedback:
             feedbackBubble
                 .padding(.top, -10)
             
         // 힌트 말풍선
-        } else if role == .hint {
+        case .hint:
             hintBubble
+            
+        // 표현집-유저 말풍선
+        case .ex_user:
+            expressionUserBubble
+            
+        // 표현집-모델 말풍선
+        case .ex_model:
+            expressionModelBubble
         }
     }
 }
@@ -208,6 +238,7 @@ struct ChatBubbleShape: Shape {
 
 // MARK: - extension
 extension ChatBox {
+    /// 일반 채팅용 유저 버블 UI
     private var userBubble: some View {
         VStack(spacing: 12) {
             // 말풍선
@@ -248,6 +279,7 @@ extension ChatBox {
         }
     }
     
+    /// 일반 채팅용 모델 버블 UI
     private var modelBubble: some View {
         VStack(spacing: 12) {
             HStack (spacing: 12) {
@@ -279,6 +311,7 @@ extension ChatBox {
         }
     }
     
+    /// 피드백용 버블 UI
     private var feedbackBubble: some View {
         VStack(spacing: 12) {
             HStack (spacing: 12) {
@@ -315,6 +348,7 @@ extension ChatBox {
         }
     }
     
+    /// 힌트용 버블 UI
     private var hintBubble: some View {
         VStack(spacing: 12) {
             HStack (spacing: 12) {
@@ -348,10 +382,58 @@ extension ChatBox {
         }
     }
     
+    /// 표현집용 유저 버블 UI
+    private var expressionUserBubble: some View {
+        VStack(spacing: 12) {
+            // 말풍선
+            HStack (spacing: 12) {
+                Spacer()
+                
+                // 북마크 저장하기 버튼
+                bookmarkButton
+                                
+                // 말풍선
+                Text(message)
+                    .font(.body1)
+                    .padding(16)
+                    .background(boxColor)
+                    .foregroundColor(.black)
+                    .clipShape(ChatBubbleShape(role: role))
+            }
+            
+            // 스피커, 번역 버튼
+            // 피드백 말풍선 밑에 띄우는 경우에는 안보이도록 함
+            if showUserButtomButtons {
+                bottomButtons
+            }
+        }
+    }
+    
+    /// 표현집용 모델 버블 UI
+    private var expressionModelBubble: some View {
+        VStack(spacing: 12) {
+            HStack (spacing: 12) {
+                // 모델 메시지
+                Text(message)
+                    .font(.body1)
+                    .padding(16)
+                    .background(boxColor)
+                    .foregroundColor(.black)
+                    .clipShape(ChatBubbleShape(role: role))
+                                
+                Spacer()
+            }
+            
+            // 스피커, 번역 버튼
+            bottomButtons
+        }
+    }
+    
+    /// 스피커 & 번역 버튼용 UI
     private var bottomButtons: some View {
         HStack (spacing: 8) {
             // model 빼고 왼쪽에 Spacer(user, hint, feedback)
-            if role != .model {
+            if !(role == .model || role == .ex_model) {
                 Spacer()
             }
             
@@ -379,16 +461,12 @@ extension ChatBox {
                 isTranslating.toggle()
 
                 if isTranslating {
+                    // 번역할 텍스트 경우에 따라 나누기
+                    // 피드백 말풍선일 경우, 바꾸는 이유(reasonForChange)를 번역해주기
+                    // 피드백 이외 말풍선일 때는 기본 메시지 번역해주기
+                    var textToTranslate = (role == .feedback && chatMessage.reasonForChange != nil) ? chatMessage.reasonForChange! : chatMessage.message
                     // 번역 호출
-                    translateService.translateText(text: chatMessage.message)
-                    
-//                    // feedback 말풍선일 경우 reasonForChange도 번역해주기?
-//                    if role == .feedback, let reason = chatMessage.reasonForChange {
-//                        
-//                        print(message + ";" + reason)
-//                        
-//                        translateService.translateText(text: (message + ";" + reason), isFeedback: role == .feedback)
-//                    }
+                    translateService.translateText(text: textToTranslate)
                 }
             }) {
                 // 피드백 진한 주황버튼일 때는 버튼 아이콘 흰색이어야 함
@@ -400,12 +478,13 @@ extension ChatBox {
             }
             
             // 모델이라면 오른쪽에 Spacer
-            if role == .model {
+            if role == .model || role == .ex_model {
                 Spacer()
             }
         }
     }
     
+    /// 북마크(저장) 버튼 UI
     private var bookmarkButton: some View {
         Button {
             saved.toggle()

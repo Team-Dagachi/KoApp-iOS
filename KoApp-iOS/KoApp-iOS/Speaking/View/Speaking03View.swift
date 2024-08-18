@@ -81,19 +81,20 @@ struct Speaking03View: View {
             .padding(.horizontal, 16)
         }
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar(content: {
+        .toolbar {
             ToolbarItem(placement: .principal) {
-                Text(subTopic.rawValue).font(.H2)
+                Text(subTopic.rawValue).font(.H3)
             }
+            
             ToolbarItem(placement: .topBarTrailing) {
                 NavigationLink {
-                    Speaking04View()
+                    Speaking04View(subTopic: self.subTopic)
                         .toolbarRole(.editor)
                 } label: {
                     Image("ic_history_24")
                 }
             }
-        })
+        }
         
     }
 }

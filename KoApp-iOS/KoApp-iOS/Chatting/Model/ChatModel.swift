@@ -8,10 +8,18 @@
 import Foundation
 
 enum ChatRole {
-    case user       // 유저가 말한 문장
-    case model      // Gemini가 이어서 대답한 문장
-    case feedback    // 고친 문장
-    case hint       // 힌트
+    /// 유저가 말한 문장
+    case user
+    /// Gemini가 이어서 대답한 문장
+    case model
+    /// 고친 문장
+    case feedback
+    /// 힌트
+    case hint
+    /// 표현집 - 유저
+    case ex_user
+    /// 표현집 - AI 모델
+    case ex_model
 }
 
 struct ChatMessage: Identifiable, Equatable {

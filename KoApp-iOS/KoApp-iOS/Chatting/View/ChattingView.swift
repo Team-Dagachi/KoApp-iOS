@@ -64,7 +64,7 @@ struct ChattingView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(content: {
             ToolbarItem(placement: .principal) {
-                Text(chatTopic.rawValue).font(.H2)
+                Text(chatTopic.rawValue).font(.H3)
                     .foregroundStyle(Color.black)
             }
         })

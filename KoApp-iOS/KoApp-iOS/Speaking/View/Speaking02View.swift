@@ -44,7 +44,7 @@ struct Speaking02View: View {
                     .padding(.top, 16)
                 
                 Text(mainTopic.rawValue)
-                    .font(.H2)
+                    .font(.H3)
                     .fontWeight(.bold)
                     .padding(.bottom, 8)
                 

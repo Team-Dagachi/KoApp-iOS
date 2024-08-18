@@ -31,6 +31,7 @@
 		C5F22A7B2C01C01000833AD1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F22A7A2C01C01000833AD1 /* ContentView.swift */; };
 		C5F22A7D2C01C01200833AD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5F22A7C2C01C01200833AD1 /* Assets.xcassets */; };
 		C5F22A802C01C01200833AD1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5F22A7F2C01C01200833AD1 /* Preview Assets.xcassets */; };
+		C5F71A592C6F5CB300064524 /* Speaking04ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F71A582C6F5CB300064524 /* Speaking04ViewModel.swift */; };
 		C5FDCAE82C439B3D00F34F44 /* Speaking03View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FDCAE72C439B3D00F34F44 /* Speaking03View.swift */; };
 		C5FDCAEA2C439B4E00F34F44 /* Speaking03ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FDCAE92C439B4E00F34F44 /* Speaking03ViewModel.swift */; };
 		C5FDCAEE2C43A9FA00F34F44 /* CustomFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FDCAED2C43A9FA00F34F44 /* CustomFonts.swift */; };
@@ -63,6 +64,7 @@
 		C5F22A7A2C01C01000833AD1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C5F22A7C2C01C01200833AD1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C5F22A7F2C01C01200833AD1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		C5F71A582C6F5CB300064524 /* Speaking04ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speaking04ViewModel.swift; sourceTree = "<group>"; };
 		C5FDCAE72C439B3D00F34F44 /* Speaking03View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speaking03View.swift; sourceTree = "<group>"; };
 		C5FDCAE92C439B4E00F34F44 /* Speaking03ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speaking03ViewModel.swift; sourceTree = "<group>"; };
 		C5FDCAED2C43A9FA00F34F44 /* CustomFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFonts.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 			children = (
 				C55B18642C3ADBAF001967AE /* Speaking02ViewModel.swift */,
 				C5FDCAE92C439B4E00F34F44 /* Speaking03ViewModel.swift */,
+				C5F71A582C6F5CB300064524 /* Speaking04ViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -342,6 +345,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5F71A592C6F5CB300064524 /* Speaking04ViewModel.swift in Sources */,
 				C5FDCAE82C439B3D00F34F44 /* Speaking03View.swift in Sources */,
 				C5F22A7B2C01C01000833AD1 /* ContentView.swift in Sources */,
 				C52EC5AA2C313990004F6BDB /* TTSService.swift in Sources */,

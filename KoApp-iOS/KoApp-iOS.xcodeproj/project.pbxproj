@@ -17,6 +17,8 @@
 		C55B185D2C3AC615001967AE /* Speaking02View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55B185C2C3AC615001967AE /* Speaking02View.swift */; };
 		C55B185F2C3AC639001967AE /* Speaking02Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55B185E2C3AC639001967AE /* Speaking02Row.swift */; };
 		C55B18652C3ADBAF001967AE /* Speaking02ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55B18642C3ADBAF001967AE /* Speaking02ViewModel.swift */; };
+		C576DD592C805215001AFFFA /* AppTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C576DD582C805215001AFFFA /* AppTabView.swift */; };
+		C576DD5B2C805244001AFFFA /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C576DD5A2C805244001AFFFA /* CustomTabBar.swift */; };
 		C5BFDDC42C1818E000DC2CF9 /* GrammarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BFDDC32C1818E000DC2CF9 /* GrammarService.swift */; };
 		C5BFDDC62C1AAE4500DC2CF9 /* HintService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BFDDC52C1AAE4500DC2CF9 /* HintService.swift */; };
 		C5C9C9E72C09BC5A00EF636D /* GoogleGenerativeAI in Frameworks */ = {isa = PBXBuildFile; productRef = C5C9C9E62C09BC5A00EF636D /* GoogleGenerativeAI */; };
@@ -47,10 +49,11 @@
 		C518F6D92C4B86B20069C0C1 /* LangageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LangageService.swift; sourceTree = "<group>"; };
 		C52EC5A92C313990004F6BDB /* TTSService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSService.swift; sourceTree = "<group>"; };
 		C5315E1F2C12F02B00C96F96 /* STTService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STTService.swift; sourceTree = "<group>"; };
-		C5315E212C135CDB00C96F96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		C55B185C2C3AC615001967AE /* Speaking02View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speaking02View.swift; sourceTree = "<group>"; };
 		C55B185E2C3AC639001967AE /* Speaking02Row.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speaking02Row.swift; sourceTree = "<group>"; };
 		C55B18642C3ADBAF001967AE /* Speaking02ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speaking02ViewModel.swift; sourceTree = "<group>"; };
+		C576DD582C805215001AFFFA /* AppTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabView.swift; sourceTree = "<group>"; };
+		C576DD5A2C805244001AFFFA /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		C5BFDDC32C1818E000DC2CF9 /* GrammarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrammarService.swift; sourceTree = "<group>"; };
 		C5BFDDC52C1AAE4500DC2CF9 /* HintService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HintService.swift; sourceTree = "<group>"; };
 		C5C9C9E92C09BD6200EF636D /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
@@ -116,6 +119,7 @@
 		C5057ABC2C34402B005291C3 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				C576DD572C805208001AFFFA /* Views */,
 				C518F6D82C4B86930069C0C1 /* Service */,
 				C5057ABD2C344033005291C3 /* Helper */,
 			);
@@ -126,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				C5057ABE2C34404A005291C3 /* CustomProgessBar.swift */,
+				C576DD5A2C805244001AFFFA /* CustomTabBar.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -196,6 +201,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		C576DD572C805208001AFFFA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C576DD582C805215001AFFFA /* AppTabView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		C5C9C9E82C09BD5200EF636D /* APIKey */ = {
 			isa = PBXGroup;
 			children = (
@@ -237,7 +250,6 @@
 			children = (
 				C5057ABC2C34402B005291C3 /* Common */,
 				C5057AB52C3436DD005291C3 /* Speaking */,
-				C5315E212C135CDB00C96F96 /* Info.plist */,
 				C5C9C9ED2C09C6C300EF636D /* Chatting */,
 				C5C9C9E82C09BD5200EF636D /* APIKey */,
 				C5F22A782C01C01000833AD1 /* KoApp_iOSApp.swift */,
@@ -349,6 +361,7 @@
 				C5FDCAE82C439B3D00F34F44 /* Speaking03View.swift in Sources */,
 				C5F22A7B2C01C01000833AD1 /* ContentView.swift in Sources */,
 				C52EC5AA2C313990004F6BDB /* TTSService.swift in Sources */,
+				C576DD5B2C805244001AFFFA /* CustomTabBar.swift in Sources */,
 				C5C9C9EA2C09BD6200EF636D /* APIKey.swift in Sources */,
 				C5BFDDC62C1AAE4500DC2CF9 /* HintService.swift in Sources */,
 				C5FDCAEA2C439B4E00F34F44 /* Speaking03ViewModel.swift in Sources */,
@@ -369,6 +382,7 @@
 				C55B185F2C3AC639001967AE /* Speaking02Row.swift in Sources */,
 				C55B185D2C3AC615001967AE /* Speaking02View.swift in Sources */,
 				C5FDCAF22C442A8800F34F44 /* TranslateService.swift in Sources */,
+				C576DD592C805215001AFFFA /* AppTabView.swift in Sources */,
 				C5057ABF2C34404A005291C3 /* CustomProgessBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
